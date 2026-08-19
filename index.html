@@ -1265,20 +1265,26 @@
          window.storage. Sans serveur, ceci protège l'accès à l'interface mais n'est pas un
          dispositif de sécurité fort (le code reste consultable) — c'est un simple portail. */
       const AUTH_STORAGE_KEY = 'catrans_auth';
-      // Le mot de passe par défaut est 'admin1234', stocké ici sous forme de hash (SHA-256) pour éviter l'exposition en clair.
+      // Le mot de passe par défaut est 'admin1234', stocké ici sous forme de hash pour éviter l'exposition en clair.
       const DEFAULT_CREDENTIALS = { 
         username: 'admin', 
-        passwordHash: '9265fdb9f2a0edbf820689e49195d520e5c929842a2202bc923a105c316223e9', 
+        passwordHash: '5518423402539479', 
         plan: 'standard' 
       };
       let authCreds = null;
       let authCredsFallback = null;
 
-      async function sha256(message) {
-        const msgBuffer = new TextEncoder().encode(message);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      // Fonction de hachage simple compatible avec le protocole file:// (où Web Crypto n'est pas disponible)
+      function hashPassword(str) {
+        let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+        for (let i = 0, ch; i < str.length; i++) {
+          ch = str.charCodeAt(i);
+          h1 = Math.imul(h1 ^ ch, 2654435761);
+          h2 = Math.imul(h2 ^ ch, 1597334677);
+        }
+        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+        return String(4294967296 * (2097151 & h2) + (h1 >>> 0));
       }
 
       async function loadAuthCreds() {
@@ -2204,11 +2210,11 @@
         loginScreen.style.display = 'none';
       }
 
-      loginForm.addEventListener('submit', async (ev) => {
+      loginForm.addEventListener('submit', (ev) => {
         ev.preventDefault();
         const u = document.getElementById('login-username').value.trim();
         const p = document.getElementById('login-password').value;
-        const hashedP = await sha256(p);
+        const hashedP = hashPassword(p);
         
         // Rétrocompatibilité si un mot de passe en clair est déjà stocké
         const isPasswordValid = authCreds && (authCreds.passwordHash ? hashedP === authCreds.passwordHash : p === authCreds.password);
@@ -2259,7 +2265,7 @@
         const confirmPassword = document.getElementById('account-confirm-password').value;
         const newPlan = document.getElementById('account-plan').value;
 
-        const hashedCurrent = await sha256(current);
+        const hashedCurrent = hashPassword(current);
         const isCurrentValid = authCreds && (authCreds.passwordHash ? hashedCurrent === authCreds.passwordHash : current === authCreds.password);
 
         if (!isCurrentValid) {
@@ -2279,7 +2285,7 @@
           return;
         }
 
-        const hashedNew = await sha256(newPassword);
+        const hashedNew = hashPassword(newPassword);
         await saveAuthCreds({ username: newUsername, passwordHash: hashedNew, plan: newPlan });
         showFieldMessage(successEl, 'Identifiants et abonnement mis à jour avec succès.');
         document.getElementById('account-form').reset();
