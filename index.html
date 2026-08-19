@@ -1,296 +1,946 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CATRANS TRANSPORTATION FEES</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#17212B;
-    --paper:#F6F3EC;
-    --panel:#FFFFFF;
-    --line:#DED7C6;
-    --accent:#B5541C;
-    --accent-soft:#F1DDC8;
-    --teal:#0F6657;
-    --teal-bg:#E2F0EC;
-    --amber:#9A6B10;
-    --amber-bg:#FBF0D9;
-    --red:#A73B30;
-    --red-bg:#FBE7E4;
-    --grey:#6E6A5F;
-    --grey-bg:#EEEAE0;
-    --font-display:'Space Grotesk', Arial, sans-serif;
-    --font-body:'IBM Plex Sans', Arial, sans-serif;
-    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
-    --radius:10px;
-  }
-  *{ box-sizing:border-box; }
-  html,body{ margin:0; padding:0; }
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--font-body);
-    line-height:1.45;
-    -webkit-font-smoothing:antialiased;
-    padding:0 0 480px;
-    min-height:100vh;
-  }
-  button, input, select{ font-family:inherit; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CATRANS TRANSPORTATION FEES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #17212B;
+      --paper: #F6F3EC;
+      --panel: #FFFFFF;
+      --line: #DED7C6;
+      --accent: #B5541C;
+      --accent-soft: #F1DDC8;
+      --teal: #0F6657;
+      --teal-bg: #E2F0EC;
+      --amber: #9A6B10;
+      --amber-bg: #FBF0D9;
+      --red: #A73B30;
+      --red-bg: #FBE7E4;
+      --grey: #6E6A5F;
+      --grey-bg: #EEEAE0;
+      --font-display: 'Space Grotesk', Arial, sans-serif;
+      --font-body: 'IBM Plex Sans', Arial, sans-serif;
+      --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --radius: 10px;
+    }
 
-  /* ---------- header / manifest ticket ---------- */
-  .masthead{
-    background:var(--ink);
-    color:#fff;
-    padding:22px 26px 20px;
-    position:relative;
-  }
-  .masthead::after{
-    content:"";
-    position:absolute; left:0; right:0; bottom:-1px; height:0;
-    border-bottom:2px dashed rgba(255,255,255,0.18);
-  }
-  .masthead-row{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:space-between; max-width:1180px; margin:0 auto; }
-  .brand{ display:flex; align-items:center; gap:14px; }
-  .brand-mark{
-    width:46px; height:46px; border-radius:8px; flex-shrink:0;
-    background:var(--accent); color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); font-weight:700; font-size:16px; letter-spacing:0.02em;
-    border:1px solid rgba(255,255,255,0.25);
-  }
-  .brand-text b{
-    font-family:var(--font-display); font-weight:700; font-size:22px; letter-spacing:0.01em;
-    display:block; color:#fff;
-  }
-  .brand-text span{ font-family:var(--font-mono); font-size:11px; color:#B7C0CC; letter-spacing:0.06em; text-transform:uppercase; }
+    * {
+      box-sizing: border-box;
+    }
 
-  .save-stamp{
-    font-family:var(--font-mono); font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
-    border:1.5px dashed rgba(255,255,255,0.4); color:#EADFCB;
-    padding:8px 14px; border-radius:6px; transform:rotate(-2deg);
-    display:flex; align-items:center; gap:8px; white-space:nowrap;
-    transition:border-color .2s, color .2s;
-  }
-  .save-stamp .dot{ width:7px; height:7px; border-radius:50%; background:#EADFCB; flex-shrink:0; }
-  .save-stamp.saving .dot{ background:var(--accent); animation:pulse 1s infinite ease-in-out; }
-  .save-stamp.saved{ border-color:var(--teal); color:#B9E4D8; }
-  .save-stamp.saved .dot{ background:var(--teal); }
-  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-  .month-pill{
-    font-family:var(--font-mono); font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
-    background:var(--accent); color:#fff; padding:8px 14px; border-radius:6px; white-space:nowrap;
-  }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 0 480px;
+      min-height: 100vh;
+    }
 
-  /* ---------- shell ---------- */
-  .shell{ max-width:1180px; margin:0 auto; padding:22px 20px 0; }
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
 
-  .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
-  .toolbar-left{ display:flex; gap:10px; flex-wrap:wrap; }
-  .toolbar-right{ display:flex; gap:10px; flex-wrap:wrap; }
-  .btn{
-    display:inline-flex; align-items:center; gap:8px; border:none; border-radius:8px;
-    font-weight:600; font-size:13.5px; padding:10px 16px; cursor:pointer;
-    transition:transform .08s, background .15s, opacity .15s;
-  }
-  .btn:active{ transform:scale(0.98); }
-  .btn-accent{ background:var(--accent); color:#fff; }
-  .btn-accent:hover{ background:#9C4517; }
-  .btn-dark{ background:var(--ink); color:#fff; }
-  .btn-dark:hover{ background:#0F1720; }
-  .btn-ghost{ background:var(--panel); color:var(--ink); border:1.5px solid var(--line); }
-  .btn-ghost:hover{ border-color:var(--accent); }
+    /* ---------- header / manifest ticket ---------- */
+    .masthead {
+      background: var(--ink);
+      color: #fff;
+      padding: 22px 26px 20px;
+      position: relative;
+    }
 
-  .subtitle{ font-family:var(--font-mono); font-size:11.5px; color:var(--grey); letter-spacing:0.04em; margin:0 0 18px; }
-  .subtitle b{ color:var(--ink); }
+    .masthead::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 0;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.18);
+    }
 
-  /* ---------- ledger table ---------- */
-  .ledger-wrap{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    overflow-x:auto; box-shadow:0 1px 2px rgba(23,33,43,0.05), 0 10px 26px -18px rgba(23,33,43,0.35);
-  }
-  table.ledger{ border-collapse:collapse; width:100%; min-width:0; }
-  table.ledger thead th{
-    background:var(--ink); color:#fff; text-align:left; font-size:9.5px; font-weight:600;
-    letter-spacing:0.03em; text-transform:uppercase; padding:8px 6px; white-space:nowrap;
-    font-family:var(--font-mono); position:sticky; top:0; z-index:2;
-  }
-  table.ledger thead th.num-col{ text-align:right; }
-  .th-label{ display:flex; align-items:center; gap:5px; }
-  th.num-col .th-label{ justify-content:flex-end; }
-  .filter-btn{
-    background:transparent; border:none; color:#8D97A3; cursor:pointer; padding:2px;
-    border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .filter-btn:hover{ background:rgba(255,255,255,0.16); color:#fff; }
-  .filter-btn.active{ color:var(--accent-soft); }
-  .filter-btn svg{ width:10px; height:10px; display:block; }
-  .th-filter-wrap{ position:relative; display:inline-flex; }
-  .filter-panel{
-    position:fixed; top:0; left:0;
-    background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:8px;
-    box-shadow:0 12px 28px -12px rgba(23,33,43,0.45); width:max-content; min-width:200px; max-width:340px; z-index:9999;
-    padding:8px; display:none; text-transform:none; letter-spacing:normal; font-family:var(--font-body);
-    font-weight:400; white-space:normal;
-  }
-  .filter-panel.open{ display:block; }
-  .filter-panel input[type="text"]{
-    width:100%; border:1px solid var(--line); border-radius:6px; padding:5px 7px;
-    font-size:11.5px; margin-bottom:6px; box-sizing:border-box;
-  }
-  .filter-actions{ display:flex; justify-content:space-between; gap:6px; margin-bottom:6px; }
-  .filter-actions button{
-    border:none; background:transparent; color:var(--accent); font-size:10.5px; font-weight:600;
-    cursor:pointer; padding:2px 4px;
-  }
-  .filter-actions button:hover{ text-decoration:underline; }
-  .filter-list{ max-height:240px; overflow-y:auto; display:flex; flex-direction:column; gap:2px; }
-  .filter-list label{
-    display:flex; align-items:flex-start; gap:7px; font-size:11.5px; font-weight:400;
-    cursor:pointer; padding:3px 4px; border-radius:4px; color:var(--ink);
-  }
-  .filter-list label:hover{ background:var(--paper); }
-  .filter-list input[type="checkbox"]{ flex-shrink:0; margin-top:2px; }
-  .filter-list label span{
-    flex:1 1 auto; min-width:0; white-space:normal; word-break:break-word; overflow-wrap:anywhere;
-  }
-  .filter-empty{ font-size:11px; color:var(--grey); font-style:italic; padding:4px 2px; }
-  table.ledger tbody td{
-    border-top:1px solid var(--line); padding:3px 4px; vertical-align:middle;
-  }
-  table.ledger tbody tr:hover{ background:#FCFAF5; }
-  .row-idx{
-    font-family:var(--font-mono); font-size:10px; color:var(--grey); text-align:center; width:24px;
-  }
-  .cell-input, .cell-select{
-    width:100%; border:1.5px solid transparent; background:transparent; border-radius:5px;
-    padding:5px 5px; font-size:11.5px; color:var(--ink);
-  }
-  .cell-input:focus, .cell-select:focus{ outline:none; border-color:var(--accent); background:#fff; }
-  .cell-date{ font-family:var(--font-mono); width:112px; min-width:112px; color:var(--grey); font-size:11px; }
-  .cell-date.touched{ color:var(--ink); font-weight:500; }
-  .cell-num{ width:70px; text-align:right; font-family:var(--font-mono); }
-  .cell-items{ min-width:110px; }
-  .cell-dest{ min-width:100px; }
-  .cell-remarks{ min-width:110px; }
-  .cell-select{ min-width:82px; font-size:11px; }
-  .money-cell{ display:flex; align-items:center; gap:3px; }
-  .amount-display{
-    font-family:var(--font-mono); font-weight:600; font-size:11.5px; text-align:right;
-    padding:5px 5px; white-space:nowrap; color:var(--ink);
-  }
-  select.cell-select{ cursor:pointer; }
-  .cell-select.suggestion{ color:var(--grey); background:transparent; font-weight:400; }
-  .status-collected{ background:#E7EFFB; color:#2456A6; }
-  .status-pending{ background:var(--grey-bg); color:var(--grey); }
-  .status-in_transit{ background:var(--amber-bg); color:var(--amber); }
-  .status-delivered{ background:var(--teal-bg); color:var(--teal); }
-  .status-delayed{ background:var(--red-bg); color:var(--red); }
-  .status-cancelled{ background:var(--grey-bg); color:var(--grey); text-decoration:line-through; }
+    .masthead-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
 
-  .row-del{
-    border:none; background:transparent; color:var(--grey); font-size:11px; cursor:pointer;
-    width:20px; height:20px; border-radius:5px; display:flex; align-items:center; justify-content:center;
-  }
-  .row-del:hover{ background:var(--red-bg); color:var(--red); }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-  tfoot td{
-    border-top:2px solid var(--ink); background:#FBF9F4; padding:10px 6px;
-    font-family:var(--font-mono); font-weight:700; font-size:11px; vertical-align:middle;
-  }
-  .foot-label{ text-align:center; color:var(--ink); letter-spacing:0.02em; }
-  .foot-total{ text-align:right; color:var(--accent); font-size:12.5px; }
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
 
-  .empty-row td{ padding:34px 20px; text-align:center; color:var(--grey); font-size:13px; font-style:italic; }
+    .brand-text b {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 0.01em;
+      display: block;
+      color: #fff;
+    }
 
-  /* ---------- bottom "add row" button ----------
+    .brand-text span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #B7C0CC;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .save-stamp {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1.5px dashed rgba(255, 255, 255, 0.4);
+      color: #EADFCB;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transform: rotate(-2deg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: border-color .2s, color .2s;
+    }
+
+    .save-stamp .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #EADFCB;
+      flex-shrink: 0;
+    }
+
+    .save-stamp.saving .dot {
+      background: var(--accent);
+      animation: pulse 1s infinite ease-in-out;
+    }
+
+    .save-stamp.saved {
+      border-color: var(--teal);
+      color: #B9E4D8;
+    }
+
+    .save-stamp.saved .dot {
+      background: var(--teal);
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .35;
+      }
+    }
+
+    .month-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* ---------- shell ---------- */
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 20px 0;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .toolbar-left {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13.5px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: transform .08s, background .15s, opacity .15s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: #9C4517;
+    }
+
+    .btn-dark {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .btn-dark:hover {
+      background: #0F1720;
+    }
+
+    .btn-ghost {
+      background: var(--panel);
+      color: var(--ink);
+      border: 1.5px solid var(--line);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+    }
+
+    .subtitle {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--grey);
+      letter-spacing: 0.04em;
+      margin: 0 0 18px;
+    }
+
+    .subtitle b {
+      color: var(--ink);
+    }
+
+    /* ---------- ledger table ---------- */
+    .ledger-wrap {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      box-shadow: 0 1px 2px rgba(23, 33, 43, 0.05), 0 10px 26px -18px rgba(23, 33, 43, 0.35);
+    }
+
+    table.ledger {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 0;
+    }
+
+    table.ledger thead th {
+      background: var(--ink);
+      color: #fff;
+      text-align: left;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 8px 6px;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    table.ledger thead th.num-col {
+      text-align: right;
+    }
+
+    .th-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    th.num-col .th-label {
+      justify-content: flex-end;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: #8D97A3;
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .filter-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .filter-btn.active {
+      color: var(--accent-soft);
+    }
+
+    .filter-btn svg {
+      width: 10px;
+      height: 10px;
+      display: block;
+    }
+
+    .th-filter-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .filter-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--panel);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 28px -12px rgba(23, 33, 43, 0.45);
+      width: max-content;
+      min-width: 200px;
+      max-width: 340px;
+      z-index: 9999;
+      padding: 8px;
+      display: none;
+      text-transform: none;
+      letter-spacing: normal;
+      font-family: var(--font-body);
+      font-weight: 400;
+      white-space: normal;
+    }
+
+    .filter-panel.open {
+      display: block;
+    }
+
+    .filter-panel input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 5px 7px;
+      font-size: 11.5px;
+      margin-bottom: 6px;
+      box-sizing: border-box;
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .filter-actions button {
+      border: none;
+      background: transparent;
+      color: var(--accent);
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    .filter-actions button:hover {
+      text-decoration: underline;
+    }
+
+    .filter-list {
+      max-height: 240px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .filter-list label {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 400;
+      cursor: pointer;
+      padding: 3px 4px;
+      border-radius: 4px;
+      color: var(--ink);
+    }
+
+    .filter-list label:hover {
+      background: var(--paper);
+    }
+
+    .filter-list input[type="checkbox"] {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .filter-list label span {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .filter-empty {
+      font-size: 11px;
+      color: var(--grey);
+      font-style: italic;
+      padding: 4px 2px;
+    }
+
+    table.ledger tbody td {
+      border-top: 1px solid var(--line);
+      padding: 3px 4px;
+      vertical-align: middle;
+    }
+
+    table.ledger tbody tr:hover {
+      background: #FCFAF5;
+    }
+
+    .row-idx {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--grey);
+      text-align: center;
+      width: 24px;
+    }
+
+    .cell-input,
+    .cell-select {
+      width: 100%;
+      border: 1.5px solid transparent;
+      background: transparent;
+      border-radius: 5px;
+      padding: 5px 5px;
+      font-size: 11.5px;
+      color: var(--ink);
+    }
+
+    .cell-input:focus,
+    .cell-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    .cell-date {
+      font-family: var(--font-mono);
+      width: 112px;
+      min-width: 112px;
+      color: var(--grey);
+      font-size: 11px;
+    }
+
+    .cell-date.touched {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .cell-num {
+      width: 70px;
+      text-align: right;
+      font-family: var(--font-mono);
+    }
+
+    .cell-items {
+      min-width: 110px;
+    }
+
+    .cell-dest {
+      min-width: 100px;
+    }
+
+    .cell-remarks {
+      min-width: 110px;
+    }
+
+    .cell-select {
+      min-width: 82px;
+      font-size: 11px;
+    }
+
+    .money-cell {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .amount-display {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 11.5px;
+      text-align: right;
+      padding: 5px 5px;
+      white-space: nowrap;
+      color: var(--ink);
+    }
+
+    select.cell-select {
+      cursor: pointer;
+    }
+
+    .cell-select.suggestion {
+      color: var(--grey);
+      background: transparent;
+      font-weight: 400;
+    }
+
+    .status-collected {
+      background: #E7EFFB;
+      color: #2456A6;
+    }
+
+    .status-pending {
+      background: var(--grey-bg);
+      color: var(--grey);
+    }
+
+    .status-in_transit {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .status-delivered {
+      background: var(--teal-bg);
+      color: var(--teal);
+    }
+
+    .status-delayed {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .status-cancelled {
+      background: var(--grey-bg);
+      color: var(--grey);
+      text-decoration: line-through;
+    }
+
+    .row-del {
+      border: none;
+      background: transparent;
+      color: var(--grey);
+      font-size: 11px;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .row-del:hover {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    tfoot td {
+      border-top: 2px solid var(--ink);
+      background: #FBF9F4;
+      padding: 10px 6px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 11px;
+      vertical-align: middle;
+    }
+
+    .foot-label {
+      text-align: center;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .foot-total {
+      text-align: right;
+      color: var(--accent);
+      font-size: 12.5px;
+    }
+
+    .empty-row td {
+      padding: 34px 20px;
+      text-align: center;
+      color: var(--grey);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    /* ---------- bottom "add row" button ----------
      Placé juste sous le tableau dans le flux normal du document : il descend
      automatiquement au fur et à mesure que des lignes sont ajoutées au-dessus. */
-  .bottom-add-row{ display:flex; justify-content:center; margin:14px 0 0; }
-  .btn-add-bottom{
-    width:100%; justify-content:center;
-    background:var(--panel); color:var(--accent);
-    border:1.5px dashed var(--accent); border-radius:var(--radius);
-    padding:12px 16px; font-size:13.5px;
-  }
-  .btn-add-bottom:hover{ background:var(--accent-soft); }
+    .bottom-add-row {
+      display: flex;
+      justify-content: center;
+      margin: 14px 0 0;
+    }
 
-  .footnote{ font-size:11.5px; color:var(--grey); margin-top:12px; display:flex; gap:8px; align-items:flex-start; }
-  .footnote span.i{ flex-shrink:0; }
+    .btn-add-bottom {
+      width: 100%;
+      justify-content: center;
+      background: var(--panel);
+      color: var(--accent);
+      border: 1.5px dashed var(--accent);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 13.5px;
+    }
 
-  /* ---------- écran de connexion ---------- */
-  .login-screen{
-    position:fixed; inset:0; z-index:20000; background:var(--ink);
-    display:flex; align-items:center; justify-content:center; padding:24px;
-  }
-  .login-card{
-    width:100%; max-width:360px; background:var(--panel); border-radius:14px;
-    padding:30px 28px 26px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
-  }
-  .login-brand{ display:flex; align-items:center; gap:12px; margin-bottom:22px; }
-  .login-brand .brand-mark{ width:42px; height:42px; }
-  .login-brand b{ font-family:var(--font-display); font-size:18px; display:block; }
-  .login-brand span{ font-family:var(--font-mono); font-size:10.5px; color:var(--grey); text-transform:uppercase; letter-spacing:0.05em; }
-  .field-group{ margin-bottom:14px; }
-  .field-group label{ display:block; font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--grey); margin-bottom:5px; }
-  .field-group input{
-    width:100%; border:1.5px solid var(--line); border-radius:8px; padding:10px 12px;
-    font-size:13.5px; background:var(--paper); color:var(--ink); box-sizing:border-box;
-  }
-  .field-group input:focus{ outline:none; border-color:var(--accent); background:#fff; }
-  .form-error{ background:var(--red-bg); color:var(--red); font-size:12px; padding:8px 10px; border-radius:7px; margin-bottom:12px; display:none; }
-  .form-error.show{ display:block; }
-  .form-success{ background:var(--teal-bg); color:var(--teal); font-size:12px; padding:8px 10px; border-radius:7px; margin-bottom:12px; display:none; }
-  .form-success.show{ display:block; }
-  .login-submit{ width:100%; justify-content:center; margin-top:4px; }
-  .link-btn{
-    background:none; border:none; color:var(--accent); font-size:12px; font-weight:600;
-    cursor:pointer; padding:2px; text-decoration:underline;
-  }
-  .link-btn:hover{ color:#9C4517; }
-  .login-links{ display:flex; justify-content:center; margin-top:14px; }
+    .btn-add-bottom:hover {
+      background: var(--accent-soft);
+    }
 
-  /* ---------- fenêtres modales génériques ---------- */
-  .modal-overlay{
-    position:fixed; inset:0; z-index:15000; background:rgba(23,33,43,0.55);
-    display:none; align-items:center; justify-content:center; padding:20px;
-  }
-  .modal-overlay.open{ display:flex; }
-  .modal-box{
-    width:100%; max-width:380px; background:var(--panel); border-radius:14px;
-    padding:24px 24px 22px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
-  }
-  .modal-title{ font-family:var(--font-display); font-weight:700; font-size:16px; margin:0 0 4px; }
-  .modal-subtitle{ font-size:12px; color:var(--grey); margin:0 0 16px; }
-  .modal-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:6px; flex-wrap:wrap; }
-  .modal-close-x{
-    position:absolute; top:14px; right:16px; background:none; border:none; font-size:16px;
-    color:var(--grey); cursor:pointer;
-  }
-  .modal-box{ position:relative; }
-  .export-choice-row{ display:flex; flex-direction:column; gap:10px; margin-top:4px; }
-  .export-choice-btn{
-    display:flex; align-items:center; gap:12px; text-align:left; width:100%;
-    border:1.5px solid var(--line); border-radius:10px; background:var(--panel);
-    padding:13px 14px; cursor:pointer; transition:border-color .15s, background .15s;
-  }
-  .export-choice-btn:hover{ border-color:var(--accent); background:var(--accent-soft); }
-  .export-choice-btn .ico{ font-size:20px; flex-shrink:0; }
-  .export-choice-btn .txt b{ display:block; font-size:13px; color:var(--ink); }
-  .export-choice-btn .txt span{ display:block; font-size:11px; color:var(--grey); margin-top:1px; }
-  .modal-back{ font-size:11.5px; color:var(--grey); background:none; border:none; cursor:pointer; padding:0; margin-bottom:12px; display:inline-flex; align-items:center; gap:4px; }
-  .modal-back:hover{ color:var(--accent); }
+    .footnote {
+      font-size: 11.5px;
+      color: var(--grey);
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
 
-  @media (max-width:640px){
-    .masthead-row{ flex-direction:column; align-items:flex-start; }
-    .toolbar{ flex-direction:column; align-items:stretch; }
-    .toolbar-left, .toolbar-right{ justify-content:space-between; }
-  }
-</style>
+    .footnote span.i {
+      flex-shrink: 0;
+    }
+
+    /* ---------- écran de connexion ---------- */
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 360px;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 30px 28px 26px;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .login-brand .brand-mark {
+      width: 42px;
+      height: 42px;
+    }
+
+    .login-brand b {
+      font-family: var(--font-display);
+      font-size: 18px;
+      display: block;
+    }
+
+    .login-brand span {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .field-group {
+      margin-bottom: 14px;
+    }
+
+    .field-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--grey);
+      margin-bottom: 5px;
+    }
+
+    .field-group input {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      background: var(--paper);
+      color: var(--ink);
+      box-sizing: border-box;
+    }
+
+    .field-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    .form-error {
+      background: var(--red-bg);
+      color: var(--red);
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .form-error.show {
+      display: block;
+    }
+
+    .form-success {
+      background: var(--teal-bg);
+      color: var(--teal);
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .form-success.show {
+      display: block;
+    }
+
+    .login-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 2px;
+      text-decoration: underline;
+    }
+
+    .link-btn:hover {
+      color: #9C4517;
+    }
+
+    .login-links {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    /* ---------- fenêtres modales génériques ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 15000;
+      background: rgba(23, 33, 43, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 380px;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 24px 24px 22px;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      margin: 0 0 4px;
+    }
+
+    .modal-subtitle {
+      font-size: 12px;
+      color: var(--grey);
+      margin: 0 0 16px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .modal-close-x {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: var(--grey);
+      cursor: pointer;
+    }
+
+    .modal-box {
+      position: relative;
+    }
+
+    .export-choice-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .export-choice-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      padding: 13px 14px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+
+    .export-choice-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .export-choice-btn .ico {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .export-choice-btn .txt b {
+      display: block;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .export-choice-btn .txt span {
+      display: block;
+      font-size: 11px;
+      color: var(--grey);
+      margin-top: 1px;
+    }
+
+    .modal-back {
+      font-size: 11.5px;
+      color: var(--grey);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .modal-back:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width:640px) {
+      .masthead-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .toolbar-left,
+      .toolbar-right {
+        justify-content: space-between;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
   <div class="login-screen" id="login-screen">
@@ -340,12 +990,14 @@
   </div>
 
   <div class="shell">
-    <p class="subtitle">Chaque ligne saisie — de <b>DATE</b> à <b>REMARKS</b> — est enregistrée automatiquement, en continu, jour après jour, dans le mois en cours.</p>
+    <p class="subtitle">Chaque ligne saisie — de <b>DATE</b> à <b>REMARKS</b> — est enregistrée automatiquement, en
+      continu, jour après jour, dans le mois en cours.</p>
 
     <div class="toolbar">
       <div class="toolbar-left">
         <button class="btn btn-ghost" id="btn-refresh">↻ Refresh</button>
-        <button class="btn btn-ghost" id="btn-clear-filters" style="display:none;">✕ Filtres (<span id="filter-count">0</span>)</button>
+        <button class="btn btn-ghost" id="btn-clear-filters" style="display:none;">✕ Filtres (<span
+            id="filter-count">0</span>)</button>
       </div>
       <div class="toolbar-right">
         <button class="btn btn-ghost" id="btn-account">🔑 Compte</button>
@@ -364,7 +1016,10 @@
             <th>
               <div class="th-label"><span>DATE</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="date" aria-label="Filtrer DATE"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="date" aria-label="Filtrer DATE"><svg
+                      viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="date"></div>
                 </div>
               </div>
@@ -372,7 +1027,10 @@
             <th>
               <div class="th-label"><span>ITEMS</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="items" aria-label="Filtrer ITEMS"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="items" aria-label="Filtrer ITEMS"><svg
+                      viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="items"></div>
                 </div>
               </div>
@@ -380,7 +1038,10 @@
             <th class="num-col">
               <div class="th-label"><span>NUMBER OF PARCELS</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="parcels" aria-label="Filtrer NUMBER OF PARCELS"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="parcels"
+                    aria-label="Filtrer NUMBER OF PARCELS"><svg viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="parcels"></div>
                 </div>
               </div>
@@ -388,7 +1049,10 @@
             <th class="num-col">
               <div class="th-label"><span>UNIT PRICE OR DECLARE VALUE</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="unitPrice" aria-label="Filtrer UNIT PRICE"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="unitPrice"
+                    aria-label="Filtrer UNIT PRICE"><svg viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="unitPrice"></div>
                 </div>
               </div>
@@ -397,7 +1061,10 @@
             <th>
               <div class="th-label"><span>DESTINATIONS</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="destinations" aria-label="Filtrer DESTINATIONS"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="destinations"
+                    aria-label="Filtrer DESTINATIONS"><svg viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="destinations"></div>
                 </div>
               </div>
@@ -405,7 +1072,10 @@
             <th>
               <div class="th-label"><span>STATUS</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="status" aria-label="Filtrer STATUS"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="status" aria-label="Filtrer STATUS"><svg
+                      viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="status"></div>
                 </div>
               </div>
@@ -413,7 +1083,10 @@
             <th>
               <div class="th-label"><span>REMARKS</span>
                 <div class="th-filter-wrap">
-                  <button type="button" class="filter-btn" data-filter-field="remarks" aria-label="Filtrer REMARKS"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z"/></svg></button>
+                  <button type="button" class="filter-btn" data-filter-field="remarks" aria-label="Filtrer REMARKS"><svg
+                      viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M1 2h14l-5.5 6.5V13l-3 2V8.5L1 2z" />
+                    </svg></button>
                   <div class="filter-panel" data-filter-panel="remarks"></div>
                 </div>
               </div>
@@ -436,17 +1109,38 @@
       <button class="btn btn-add-bottom" id="btn-add-row-bottom">+ Ajouter une nouvelle ligne</button>
     </div>
 
-    <div class="footnote"><span class="i">ℹ️</span><span>AMOUNT = NUMBER OF PARCELS × UNIT PRICE OR DECLARE VALUE, calculé automatiquement sur chaque ligne. Le total en bas additionne les lignes actuellement visibles du mois affiché (selon les filtres actifs).</span></div>
-    <div class="footnote"><span class="i">🔽</span><span>Cliquez sur l'icône entonnoir d'un en-tête (DATE, ITEMS, PARCELS, UNIT PRICE, DESTINATIONS, STATUS, REMARKS) pour filtrer les lignes affichées selon les valeurs de cette colonne. Les filtres de plusieurs colonnes se cumulent ; le bouton « ✕ Filtres » dans la barre d'outils les réinitialise tous en un clic.</span></div>
-    <div class="footnote"><span class="i">💰</span><span>UNIT PRICE OR DECLARE VALUE est pré-rempli à <b>3500</b> par défaut sur chaque nouvelle ligne ; la valeur reste modifiable à tout moment.</span></div>
-    <div class="footnote"><span class="i">⏭️</span><span>Appuyez sur <b>ENTRÉE</b> après avoir saisi une cellule — à partir de DATE — pour passer automatiquement à la cellule suivante de la ligne.</span></div>
-    <div class="footnote"><span class="i">⌨️</span><span>Dans une cellule STATUS encore grisée, appuyez sur <b>SHIFT</b> pour valider automatiquement la suggestion « Collected ».</span></div>
-    <div class="footnote"><span class="i">🧹</span><span>À la création d'une nouvelle ligne, tous les messages grisés non confirmés sur les lignes précédentes (DATE, ITEMS, NUMBER OF PARCELS, DESTINATIONS, STATUS, REMARKS) s'effacent automatiquement et laissent des cases vierges, sans texte indicatif.</span></div>
-    <div class="footnote"><span class="i">🗑</span><span>Le bouton <b>supprimer</b> au tout début de chaque ligne retire cette ligne entière du manifeste (une confirmation vous est demandée).</span></div>
-    <div class="footnote"><span class="i">⬆</span><span>Le bouton <b>Import</b> lit un fichier .xlsx ou .csv, reconnaît les colonnes d'après leurs en-têtes (quel que soit leur ordre) et remplace automatiquement le mois affiché à l'écran — visible immédiatement et pris en compte dans le prochain export Excel.</span></div>
-    <div class="footnote"><span class="i">💡</span><span>Dans chaque cellule (DATE, ITEMS, PARCELS, UNIT PRICE, DESTINATIONS, REMARKS), en tapant, la valeur la plus proche déjà utilisée dans cette colonne apparaît automatiquement en surbrillance, directement à la suite de ce que vous venez de taper. Appuyez sur <b>TAB</b> ou <b>ENTRÉE</b> pour l'accepter, ou continuez simplement à taper pour l'ignorer.</span></div>
-    <div class="footnote"><span class="i">⬅️➡️⬆️⬇️</span><span>Les flèches directionnelles du clavier déplacent uniquement le focus d'une cellule à l'autre dans le tableau (haut/bas/gauche/droite), sans aucun autre effet.</span></div>
-    <div class="footnote"><span class="i">📅</span><span>Les lignes saisies un jour donné restent dans le mois en cours jusqu'à la fin du mois : aucune réinitialisation entre deux jours. Dès que le mois change, une nouvelle feuille vierge démarre automatiquement pour le nouveau mois, et le mois précédent est conservé tel quel comme feuille distincte, nommée d'après son mois, dans le classeur Excel exporté.</span></div>
+    <div class="footnote"><span class="i">ℹ️</span><span>AMOUNT = NUMBER OF PARCELS × UNIT PRICE OR DECLARE VALUE,
+        calculé automatiquement sur chaque ligne. Le total en bas additionne les lignes actuellement visibles du mois
+        affiché (selon les filtres actifs).</span></div>
+    <div class="footnote"><span class="i">🔽</span><span>Cliquez sur l'icône entonnoir d'un en-tête (DATE, ITEMS,
+        PARCELS, UNIT PRICE, DESTINATIONS, STATUS, REMARKS) pour filtrer les lignes affichées selon les valeurs de cette
+        colonne. Les filtres de plusieurs colonnes se cumulent ; le bouton « ✕ Filtres » dans la barre d'outils les
+        réinitialise tous en un clic.</span></div>
+    <div class="footnote"><span class="i">💰</span><span>UNIT PRICE OR DECLARE VALUE est pré-rempli à <b>3500</b> par
+        défaut sur chaque nouvelle ligne ; la valeur reste modifiable à tout moment.</span></div>
+    <div class="footnote"><span class="i">⏭️</span><span>Appuyez sur <b>ENTRÉE</b> après avoir saisi une cellule — à
+        partir de DATE — pour passer automatiquement à la cellule suivante de la ligne.</span></div>
+    <div class="footnote"><span class="i">⌨️</span><span>Dans une cellule STATUS encore grisée, appuyez sur <b>SHIFT</b>
+        pour valider automatiquement la suggestion « Collected ».</span></div>
+    <div class="footnote"><span class="i">🧹</span><span>À la création d'une nouvelle ligne, tous les messages grisés
+        non confirmés sur les lignes précédentes (DATE, ITEMS, NUMBER OF PARCELS, DESTINATIONS, STATUS, REMARKS)
+        s'effacent automatiquement et laissent des cases vierges, sans texte indicatif.</span></div>
+    <div class="footnote"><span class="i">🗑</span><span>Le bouton <b>supprimer</b> au tout début de chaque ligne retire
+        cette ligne entière du manifeste (une confirmation vous est demandée).</span></div>
+    <div class="footnote"><span class="i">⬆</span><span>Le bouton <b>Import</b> lit un fichier .xlsx ou .csv, reconnaît
+        les colonnes d'après leurs en-têtes (quel que soit leur ordre) et remplace automatiquement le mois affiché à
+        l'écran — visible immédiatement et pris en compte dans le prochain export Excel.</span></div>
+    <div class="footnote"><span class="i">💡</span><span>Dans chaque cellule (DATE, ITEMS, PARCELS, UNIT PRICE,
+        DESTINATIONS, REMARKS), en tapant, la valeur la plus proche déjà utilisée dans cette colonne apparaît
+        automatiquement en surbrillance, directement à la suite de ce que vous venez de taper. Appuyez sur <b>TAB</b> ou
+        <b>ENTRÉE</b> pour l'accepter, ou continuez simplement à taper pour l'ignorer.</span></div>
+    <div class="footnote"><span class="i">⬅️➡️⬆️⬇️</span><span>Les flèches directionnelles du clavier déplacent
+        uniquement le focus d'une cellule à l'autre dans le tableau (haut/bas/gauche/droite), sans aucun autre
+        effet.</span></div>
+    <div class="footnote"><span class="i">📅</span><span>Les lignes saisies un jour donné restent dans le mois en cours
+        jusqu'à la fin du mois : aucune réinitialisation entre deux jours. Dès que le mois change, une nouvelle feuille
+        vierge démarre automatiquement pour le nouveau mois, et le mois précédent est conservé tel quel comme feuille
+        distincte, nommée d'après son mois, dans le classeur Excel exporté.</span></div>
   </div>
 
   <!-- Modale : gestion du compte (changer nom d'utilisateur / mot de passe, déconnexion) -->
@@ -476,7 +1170,8 @@
         </div>
         <div class="field-group">
           <label for="account-plan">Option Paiement / Abonnement</label>
-          <select id="account-plan" style="width:100%; border:1.5px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13.5px; background:var(--paper); color:var(--ink);">
+          <select id="account-plan"
+            style="width:100%; border:1.5px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13.5px; background:var(--paper); color:var(--ink);">
             <option value="standard">Option Standard (5000 FCFA) - Remplir le tableau</option>
             <option value="medium">Option Medium (7000 FCFA) - Tableau + Import</option>
             <option value="premium">Option Premium (10000 FCFA) - Tableau + Import + Export</option>
@@ -495,11 +1190,13 @@
     <div class="modal-box">
       <button type="button" class="modal-close-x" data-close-modal="forgot-modal">✕</button>
       <h3 class="modal-title">Mot de passe oublié</h3>
-      <p class="modal-subtitle">Cette application fonctionne sans serveur : aucun email de réinitialisation ne peut être envoyé automatiquement. Vous pouvez réinitialiser les identifiants à leur valeur par défaut.</p>
+      <p class="modal-subtitle">Cette application fonctionne sans serveur : aucun email de réinitialisation ne peut être
+        envoyé automatiquement. Vous pouvez réinitialiser les identifiants à leur valeur par défaut.</p>
       <div class="form-success" id="forgot-success"></div>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" data-close-modal="forgot-modal">Annuler</button>
-        <button type="button" class="btn btn-accent" id="btn-confirm-reset">Réinitialiser aux valeurs par défaut</button>
+        <button type="button" class="btn btn-accent" id="btn-confirm-reset">Réinitialiser aux valeurs par
+          défaut</button>
       </div>
     </div>
   </div>
@@ -527,7 +1224,9 @@
       <div id="export-step-email" style="display:none;">
         <button type="button" class="modal-back" id="export-email-back">← Retour</button>
         <h3 class="modal-title">Envoyer par email</h3>
-        <p class="modal-subtitle">Le fichier sera téléchargé sur cet ordinateur, puis votre messagerie s'ouvrira avec le destinataire pré-rempli — il vous suffira d'y joindre le fichier téléchargé (les navigateurs ne permettent pas la pièce jointe automatique).</p>
+        <p class="modal-subtitle">Le fichier sera téléchargé sur cet ordinateur, puis votre messagerie s'ouvrira avec le
+          destinataire pré-rempli — il vous suffira d'y joindre le fichier téléchargé (les navigateurs ne permettent pas
+          la pièce jointe automatique).</p>
         <div class="form-error" id="export-email-error"></div>
         <form id="export-email-form">
           <div class="field-group">
@@ -543,347 +1242,359 @@
     </div>
   </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
-<script>
-(function(){
-"use strict";
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+  <script>
+    (function () {
+      "use strict";
 
-const STATUS_OPTIONS = [
-  { id:'collected',   label:'Collected' },
-  { id:'pending',     label:'Pending' },
-  { id:'in_transit',  label:'In Transit' },
-  { id:'delivered',   label:'Delivered' },
-  { id:'delayed',     label:'Delayed' },
-  { id:'cancelled',   label:'Cancelled' },
-];
+      const STATUS_OPTIONS = [
+        { id: 'collected', label: 'Collected' },
+        { id: 'pending', label: 'Pending' },
+        { id: 'in_transit', label: 'In Transit' },
+        { id: 'delivered', label: 'Delivered' },
+        { id: 'delayed', label: 'Delayed' },
+        { id: 'cancelled', label: 'Cancelled' },
+      ];
 
-const hasStorage = (typeof window !== 'undefined') && !!window.storage;
-let memoryFallback = null;
-const STORAGE_KEY = 'catrans_months'; // { "2026-08": [rows...], "2026-07": [rows...], ... }
+      const hasStorage = (typeof window !== 'undefined') && !!window.storage;
+      let memoryFallback = null;
+      const STORAGE_KEY = 'catrans_months'; // { "2026-08": [rows...], "2026-07": [rows...], ... }
 
-/* ---------- authentification (écran de connexion) ----------
-   Simple verrou d'accès côté client : nom d'utilisateur + mot de passe stockés via
-   window.storage. Sans serveur, ceci protège l'accès à l'interface mais n'est pas un
-   dispositif de sécurité fort (le code reste consultable) — c'est un simple portail. */
-const AUTH_STORAGE_KEY = 'catrans_auth';
-const DEFAULT_CREDENTIALS = { username: 'admin', password: 'admin1234', plan: 'standard' };
-let authCreds = null;
-let authCredsFallback = null;
+      /* ---------- authentification (écran de connexion) ----------
+         Simple verrou d'accès côté client : nom d'utilisateur + mot de passe stockés via
+         window.storage. Sans serveur, ceci protège l'accès à l'interface mais n'est pas un
+         dispositif de sécurité fort (le code reste consultable) — c'est un simple portail. */
+      const AUTH_STORAGE_KEY = 'catrans_auth';
+      // Le mot de passe par défaut est 'admin1234', stocké ici sous forme de hash (SHA-256) pour éviter l'exposition en clair.
+      const DEFAULT_CREDENTIALS = { 
+        username: 'admin', 
+        passwordHash: '9265fdb9f2a0edbf820689e49195d520e5c929842a2202bc923a105c316223e9', 
+        plan: 'standard' 
+      };
+      let authCreds = null;
+      let authCredsFallback = null;
 
-async function loadAuthCreds(){
-  if(!hasStorage){
-    return authCredsFallback ? {...authCredsFallback} : {...DEFAULT_CREDENTIALS};
-  }
-  try{
-    const res = await window.storage.get(AUTH_STORAGE_KEY, false);
-    if(res && res.value) return JSON.parse(res.value);
-  }catch(e){ /* pas encore de valeur stockée : on retombe sur les identifiants par défaut */ }
-  return {...DEFAULT_CREDENTIALS};
-}
-async function saveAuthCreds(creds){
-  authCreds = creds;
-  authCredsFallback = creds;
-  if(!hasStorage) return;
-  try{ await window.storage.set(AUTH_STORAGE_KEY, JSON.stringify(creds), false); }
-  catch(e){ console.error('Impossible d’enregistrer les identifiants pour le moment.', e); }
-}
-
-function pad2(n){ return String(n).padStart(2,'0'); }
-const MONTHS_EN = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-
-function monthKeyOf(date){
-  return `${date.getFullYear()}-${pad2(date.getMonth()+1)}`;
-}
-function monthLabelOf(key){
-  const [y, m] = key.split('-').map(Number);
-  return `${MONTHS_EN[m-1]} ${y}`;
-}
-function sheetNameOf(key){
-  // Les noms de feuille Excel sont limités à 31 caractères et ne supportent pas certains caractères.
-  return monthLabelOf(key).slice(0, 31);
-}
-
-// Mois actif de la session : déterminé une fois au chargement, à partir de la date du jour.
-const ACTIVE_MONTH_KEY = monthKeyOf(new Date());
-
-function exportFileName(){
-  return `CATRANS TRANSPORTATION FEES.xlsx`;
-}
-function todayStr(){
-  const d = new Date();
-  return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}`;
-}
-function nowTimeStr(){
-  const d = new Date();
-  return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
-}
-function fmtMoney(n){
-  const v = Number(n)||0;
-  return v.toLocaleString('fr-FR', { maximumFractionDigits:0 });
-}
-function genId(){ return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
-
-/* ---------- import helpers ---------- */
-const HEADER_ALIASES = {
-  date: ['DATE'],
-  items: ['ITEMS', 'ITEM'],
-  parcels: ['NUMBER OF PARCELS', 'NUMBER OF PARCEL', 'PARCELS', 'PARCEL', 'NB PARCELS', 'QTY', 'QUANTITY'],
-  unitPrice: ['UNIT PRICE OR DECLARE VALUE', 'UNIT PRICE', 'DECLARE VALUE', 'PRICE'],
-  destinations: ['DESTINATIONS', 'DESTINATION'],
-  status: ['STATUS'],
-  remarks: ['REMARKS', 'REMARK', 'NOTES', 'NOTE'],
-};
-function normalizeHeader(h){
-  return String(h==null?'':h).replace(/\s+/g,' ').trim().toUpperCase();
-}
-function fieldForHeader(h){
-  const norm = normalizeHeader(h);
-  if(!norm) return null;
-  for(const key in HEADER_ALIASES){
-    if(HEADER_ALIASES[key].includes(norm)) return key;
-  }
-  return null; // colonnes inconnues (ex. AMOUNT, #) volontairement ignorées : AMOUNT est toujours recalculé
-}
-function buildFieldMap(headerCells){
-  const map = {};
-  headerCells.forEach((h, i)=>{
-    const field = fieldForHeader(h);
-    if(field && !(field in map)) map[field] = i;
-  });
-  return map;
-}
-function toNumberOrEmpty(v, fallback){
-  if(v===undefined || v===null || v==='') return fallback;
-  if(typeof v === 'number') return v;
-  const cleaned = String(v).replace(/[^\d.\-]/g,'');
-  if(cleaned==='' || cleaned==='-') return fallback;
-  const n = Number(cleaned);
-  return isNaN(n) ? fallback : n;
-}
-function isTotalRow(cells){
-  return cells.some(c => normalizeHeader(c) === 'TOTAL AMOUNT');
-}
-function isBlankRow(cells){
-  return !cells.some(c => String(c==null?'':c).trim() !== '');
-}
-function rowFromMappedCells(cells, map){
-  const get = (key)=> (key in map) ? cells[map[key]] : undefined;
-  const statusText = normalizeHeader(get('status'));
-  const matchedStatus = STATUS_OPTIONS.find(s => s.label.toUpperCase() === statusText);
-  return {
-    id:genId(),
-    date:String(get('date') ?? '').trim(), dateTouched:true,
-    items:String(get('items') ?? '').trim(), itemsTouched:true,
-    parcels:toNumberOrEmpty(get('parcels'), ''), parcelsTouched:true,
-    unitPrice:toNumberOrEmpty(get('unitPrice'), 3500),
-    destinations:String(get('destinations') ?? '').trim(), destinationsTouched:true,
-    status: matchedStatus ? matchedStatus.id : '', statusTouched:true,
-    remarks:String(get('remarks') ?? '').trim(), remarksTouched:true,
-  };
-}
-function parseDelimitedText(text){
-  const clean = text.replace(/^\uFEFF/, '');
-  const firstLine = clean.split(/\r?\n/)[0] || '';
-  const semiCount = (firstLine.match(/;/g)||[]).length;
-  const commaCount = (firstLine.match(/,/g)||[]).length;
-  const delim = semiCount >= commaCount ? ';' : ',';
-
-  const table = [];
-  let row = [], field = '', inQuotes = false;
-  for(let i=0;i<clean.length;i++){
-    const c = clean[i];
-    if(inQuotes){
-      if(c === '"'){
-        if(clean[i+1] === '"'){ field += '"'; i++; }
-        else{ inQuotes = false; }
-      }else{ field += c; }
-    }else{
-      if(c === '"'){ inQuotes = true; }
-      else if(c === delim){ row.push(field); field=''; }
-      else if(c === '\n'){ row.push(field); table.push(row); row=[]; field=''; }
-      else if(c === '\r'){ /* ignoré, \n gère la fin de ligne */ }
-      else{ field += c; }
-    }
-  }
-  if(field.length || row.length){ row.push(field); table.push(row); }
-  return table.filter(r => !isBlankRow(r));
-}
-async function parseXlsxFile(file){
-  const buffer = await file.arrayBuffer();
-  const wb = new ExcelJS.Workbook();
-  await wb.xlsx.load(buffer);
-  const ws = wb.worksheets[0];
-  if(!ws) throw new Error('Feuille introuvable');
-  let maxCol = 1;
-  ws.eachRow({ includeEmpty:false }, r=>{ if(r.cellCount > maxCol) maxCol = r.cellCount; });
-  const table = [];
-  ws.eachRow({ includeEmpty:false }, r=>{
-    const vals = [];
-    for(let c=1;c<=maxCol;c++){
-      let v = r.getCell(c).value;
-      if(v && typeof v === 'object'){
-        if('text' in v) v = v.text;
-        else if('result' in v) v = v.result;
-        else if(v instanceof Date) v = v;
+      async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       }
-      vals.push(v==null?'':v);
-    }
-    table.push(vals);
-  });
-  return table.filter(r => !isBlankRow(r));
-}
 
-function newRow(){
-  return { id:genId(), date:todayStr(), dateTouched:false, items:'', itemsTouched:false, parcels:'', parcelsTouched:false, unitPrice:3500, destinations:'', destinationsTouched:false, status:'collected', statusTouched:false, remarks:'', remarksTouched:false };
-}
-function amountOf(row){
-  const p = parseFloat(row.parcels), u = parseFloat(row.unitPrice);
-  if(isNaN(p) || isNaN(u)) return 0;
-  return p * u;
-}
-
-let rows = [];          // Lignes du mois ACTIF (celui affiché à l'écran)
-let allMonths = {};      // Tous les mois connus : { "2026-08": [rows...], ... } — utilisé pour l'export multi-feuilles
-let saveTimer = null;
-
-async function loadAllMonths(){
-  if(!hasStorage){
-    return memoryFallback || {};
-  }
-  try{
-    const res = await window.storage.get(STORAGE_KEY, false);
-    return (res && res.value) ? JSON.parse(res.value) : {};
-  }catch(e){
-    return memoryFallback || {};
-  }
-}
-
-async function loadRows(){
-  allMonths = await loadAllMonths();
-  if(!allMonths[ACTIVE_MONTH_KEY] || !allMonths[ACTIVE_MONTH_KEY].length){
-    // Aucune ligne pour le mois en cours : nouvelle feuille vierge pour ce mois.
-    allMonths[ACTIVE_MONTH_KEY] = [newRow()];
-  }
-  rows = allMonths[ACTIVE_MONTH_KEY];
-  updateMonthPill();
-}
-
-function updateMonthPill(){
-  const pill = document.getElementById('month-pill');
-  if(pill) pill.textContent = monthLabelOf(ACTIVE_MONTH_KEY);
-}
-
-function setStampSaving(){
-  const el = document.getElementById('save-stamp');
-  const txt = document.getElementById('save-stamp-text');
-  el.classList.remove('saved'); el.classList.add('saving');
-  txt.textContent = 'SAVING…';
-}
-function setStampSaved(){
-  const el = document.getElementById('save-stamp');
-  const txt = document.getElementById('save-stamp-text');
-  el.classList.remove('saving'); el.classList.add('saved');
-  txt.textContent = 'AUTO-SAVED · ' + nowTimeStr();
-}
-
-function scheduleSave(){
-  memoryFallback = allMonths;
-  setStampSaving();
-  if(saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveNow, 500);
-}
-
-async function saveNow(){
-  // Le mois actif est toujours ré-écrit dans l'objet complet des mois, afin de ne
-  // jamais écraser les mois précédents lors de la sauvegarde.
-  allMonths[ACTIVE_MONTH_KEY] = rows;
-  memoryFallback = allMonths;
-  if(!hasStorage){ setStampSaved(); return; }
-  try{
-    const result = await window.storage.set(STORAGE_KEY, JSON.stringify(allMonths), false);
-    if(!result){ console.error('Storage set returned no result'); }
-    setStampSaved();
-  }catch(e){
-    console.error('Sauvegarde impossible pour le moment.', e);
-    const txt = document.getElementById('save-stamp-text');
-    txt.textContent = 'SAVE FAILED — RETRYING…';
-    saveTimer = setTimeout(saveNow, 2000);
-  }
-}
-
-function esc(str){
-  const d = document.createElement('div');
-  d.textContent = str==null ? '' : String(str);
-  return d.innerHTML;
-}
-
-function focusNextField(currentEl){
-  const tr = currentEl.closest('tr[data-id]');
-  if(!tr) return;
-  const fields = Array.from(tr.querySelectorAll('[data-field]'));
-  const idx = fields.indexOf(currentEl);
-  if(idx > -1 && idx < fields.length - 1){
-    const next = fields[idx+1];
-    next.focus();
-    if(typeof next.select === 'function') next.select();
-  }else{
-    // Dernière cellule de la ligne : passe automatiquement à la première cellule (DATE) de la ligne suivante
-    const nextRow = tr.nextElementSibling;
-    if(nextRow && nextRow.matches('tr[data-id]')){
-      const firstField = nextRow.querySelector('[data-field]');
-      if(firstField){
-        firstField.focus();
-        if(typeof firstField.select === 'function') firstField.select();
+      async function loadAuthCreds() {
+        if (!hasStorage) {
+          return authCredsFallback ? { ...authCredsFallback } : { ...DEFAULT_CREDENTIALS };
+        }
+        try {
+          const res = await window.storage.get(AUTH_STORAGE_KEY, false);
+          if (res && res.value) return JSON.parse(res.value);
+        } catch (e) { /* pas encore de valeur stockée : on retombe sur les identifiants par défaut */ }
+        return { ...DEFAULT_CREDENTIALS };
       }
-    }
-  }
-}
+      async function saveAuthCreds(creds) {
+        authCreds = creds;
+        authCredsFallback = creds;
+        if (!hasStorage) return;
+        try { await window.storage.set(AUTH_STORAGE_KEY, JSON.stringify(creds), false); }
+        catch (e) { console.error('Impossible d’enregistrer les identifiants pour le moment.', e); }
+      }
 
-function focusCell(el){
-  if(!el) return;
-  el.focus();
-  if(typeof el.select === 'function') el.select();
-}
+      function pad2(n) { return String(n).padStart(2, '0'); }
+      const MONTHS_EN = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
 
-// Navigation au clavier avec les flèches directionnelles : déplace uniquement le focus
-// d'une cellule à l'autre (haut/bas/gauche/droite) — aucun autre effet (pas d'incrément
-// de nombre, pas de changement de valeur de STATUS, pas de déplacement du curseur texte).
-function handleArrowNav(ev, el){
-  const tr = el.closest('tr[data-id]');
-  if(!tr) return;
-  const fields = Array.from(tr.querySelectorAll('[data-field]'));
-  const idx = fields.indexOf(el);
-  if(idx === -1) return;
+      function monthKeyOf(date) {
+        return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}`;
+      }
+      function monthLabelOf(key) {
+        const [y, m] = key.split('-').map(Number);
+        return `${MONTHS_EN[m - 1]} ${y}`;
+      }
+      function sheetNameOf(key) {
+        // Les noms de feuille Excel sont limités à 31 caractères et ne supportent pas certains caractères.
+        return monthLabelOf(key).slice(0, 31);
+      }
 
-  if(ev.key === 'ArrowLeft'){
-    ev.preventDefault();
-    if(idx > 0) focusCell(fields[idx-1]);
-  }else if(ev.key === 'ArrowRight'){
-    ev.preventDefault();
-    if(idx < fields.length-1) focusCell(fields[idx+1]);
-  }else if(ev.key === 'ArrowUp'){
-    ev.preventDefault();
-    const prevRow = tr.previousElementSibling;
-    if(prevRow && prevRow.matches('tr[data-id]')){
-      const prevFields = Array.from(prevRow.querySelectorAll('[data-field]'));
-      focusCell(prevFields[idx]);
-    }
-  }else if(ev.key === 'ArrowDown'){
-    ev.preventDefault();
-    const nextRow = tr.nextElementSibling;
-    if(nextRow && nextRow.matches('tr[data-id]')){
-      const nextFields = Array.from(nextRow.querySelectorAll('[data-field]'));
-      focusCell(nextFields[idx]);
-    }
-  }
-}
+      // Mois actif de la session : déterminé une fois au chargement, à partir de la date du jour.
+      const ACTIVE_MONTH_KEY = monthKeyOf(new Date());
 
-function rowHtml(row, idx){
-  return `
+      function exportFileName() {
+        return `CATRANS TRANSPORTATION FEES.xlsx`;
+      }
+      function todayStr() {
+        const d = new Date();
+        return `${pad2(d.getDate())}/${pad2(d.getMonth() + 1)}/${d.getFullYear()}`;
+      }
+      function nowTimeStr() {
+        const d = new Date();
+        return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+      }
+      function fmtMoney(n) {
+        const v = Number(n) || 0;
+        return v.toLocaleString('fr-FR', { maximumFractionDigits: 0 });
+      }
+      function genId() { return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+      /* ---------- import helpers ---------- */
+      const HEADER_ALIASES = {
+        date: ['DATE'],
+        items: ['ITEMS', 'ITEM'],
+        parcels: ['NUMBER OF PARCELS', 'NUMBER OF PARCEL', 'PARCELS', 'PARCEL', 'NB PARCELS', 'QTY', 'QUANTITY'],
+        unitPrice: ['UNIT PRICE OR DECLARE VALUE', 'UNIT PRICE', 'DECLARE VALUE', 'PRICE'],
+        destinations: ['DESTINATIONS', 'DESTINATION'],
+        status: ['STATUS'],
+        remarks: ['REMARKS', 'REMARK', 'NOTES', 'NOTE'],
+      };
+      function normalizeHeader(h) {
+        return String(h == null ? '' : h).replace(/\s+/g, ' ').trim().toUpperCase();
+      }
+      function fieldForHeader(h) {
+        const norm = normalizeHeader(h);
+        if (!norm) return null;
+        for (const key in HEADER_ALIASES) {
+          if (HEADER_ALIASES[key].includes(norm)) return key;
+        }
+        return null; // colonnes inconnues (ex. AMOUNT, #) volontairement ignorées : AMOUNT est toujours recalculé
+      }
+      function buildFieldMap(headerCells) {
+        const map = {};
+        headerCells.forEach((h, i) => {
+          const field = fieldForHeader(h);
+          if (field && !(field in map)) map[field] = i;
+        });
+        return map;
+      }
+      function toNumberOrEmpty(v, fallback) {
+        if (v === undefined || v === null || v === '') return fallback;
+        if (typeof v === 'number') return v;
+        const cleaned = String(v).replace(/[^\d.\-]/g, '');
+        if (cleaned === '' || cleaned === '-') return fallback;
+        const n = Number(cleaned);
+        return isNaN(n) ? fallback : n;
+      }
+      function isTotalRow(cells) {
+        return cells.some(c => normalizeHeader(c) === 'TOTAL AMOUNT');
+      }
+      function isBlankRow(cells) {
+        return !cells.some(c => String(c == null ? '' : c).trim() !== '');
+      }
+      function rowFromMappedCells(cells, map) {
+        const get = (key) => (key in map) ? cells[map[key]] : undefined;
+        const statusText = normalizeHeader(get('status'));
+        const matchedStatus = STATUS_OPTIONS.find(s => s.label.toUpperCase() === statusText);
+        return {
+          id: genId(),
+          date: String(get('date') ?? '').trim(), dateTouched: true,
+          items: String(get('items') ?? '').trim(), itemsTouched: true,
+          parcels: toNumberOrEmpty(get('parcels'), ''), parcelsTouched: true,
+          unitPrice: toNumberOrEmpty(get('unitPrice'), 3500),
+          destinations: String(get('destinations') ?? '').trim(), destinationsTouched: true,
+          status: matchedStatus ? matchedStatus.id : '', statusTouched: true,
+          remarks: String(get('remarks') ?? '').trim(), remarksTouched: true,
+        };
+      }
+      function parseDelimitedText(text) {
+        const clean = text.replace(/^\uFEFF/, '');
+        const firstLine = clean.split(/\r?\n/)[0] || '';
+        const semiCount = (firstLine.match(/;/g) || []).length;
+        const commaCount = (firstLine.match(/,/g) || []).length;
+        const delim = semiCount >= commaCount ? ';' : ',';
+
+        const table = [];
+        let row = [], field = '', inQuotes = false;
+        for (let i = 0; i < clean.length; i++) {
+          const c = clean[i];
+          if (inQuotes) {
+            if (c === '"') {
+              if (clean[i + 1] === '"') { field += '"'; i++; }
+              else { inQuotes = false; }
+            } else { field += c; }
+          } else {
+            if (c === '"') { inQuotes = true; }
+            else if (c === delim) { row.push(field); field = ''; }
+            else if (c === '\n') { row.push(field); table.push(row); row = []; field = ''; }
+            else if (c === '\r') { /* ignoré, \n gère la fin de ligne */ }
+            else { field += c; }
+          }
+        }
+        if (field.length || row.length) { row.push(field); table.push(row); }
+        return table.filter(r => !isBlankRow(r));
+      }
+      async function parseXlsxFile(file) {
+        const buffer = await file.arrayBuffer();
+        const wb = new ExcelJS.Workbook();
+        await wb.xlsx.load(buffer);
+        const ws = wb.worksheets[0];
+        if (!ws) throw new Error('Feuille introuvable');
+        let maxCol = 1;
+        ws.eachRow({ includeEmpty: false }, r => { if (r.cellCount > maxCol) maxCol = r.cellCount; });
+        const table = [];
+        ws.eachRow({ includeEmpty: false }, r => {
+          const vals = [];
+          for (let c = 1; c <= maxCol; c++) {
+            let v = r.getCell(c).value;
+            if (v && typeof v === 'object') {
+              if ('text' in v) v = v.text;
+              else if ('result' in v) v = v.result;
+              else if (v instanceof Date) v = v;
+            }
+            vals.push(v == null ? '' : v);
+          }
+          table.push(vals);
+        });
+        return table.filter(r => !isBlankRow(r));
+      }
+
+      function newRow() {
+        return { id: genId(), date: todayStr(), dateTouched: false, items: '', itemsTouched: false, parcels: '', parcelsTouched: false, unitPrice: 3500, destinations: '', destinationsTouched: false, status: 'collected', statusTouched: false, remarks: '', remarksTouched: false };
+      }
+      function amountOf(row) {
+        const p = parseFloat(row.parcels), u = parseFloat(row.unitPrice);
+        if (isNaN(p) || isNaN(u)) return 0;
+        return p * u;
+      }
+
+      let rows = [];          // Lignes du mois ACTIF (celui affiché à l'écran)
+      let allMonths = {};      // Tous les mois connus : { "2026-08": [rows...], ... } — utilisé pour l'export multi-feuilles
+      let saveTimer = null;
+
+      async function loadAllMonths() {
+        if (!hasStorage) {
+          return memoryFallback || {};
+        }
+        try {
+          const res = await window.storage.get(STORAGE_KEY, false);
+          return (res && res.value) ? JSON.parse(res.value) : {};
+        } catch (e) {
+          return memoryFallback || {};
+        }
+      }
+
+      async function loadRows() {
+        allMonths = await loadAllMonths();
+        if (!allMonths[ACTIVE_MONTH_KEY] || !allMonths[ACTIVE_MONTH_KEY].length) {
+          // Aucune ligne pour le mois en cours : nouvelle feuille vierge pour ce mois.
+          allMonths[ACTIVE_MONTH_KEY] = [newRow()];
+        }
+        rows = allMonths[ACTIVE_MONTH_KEY];
+        updateMonthPill();
+      }
+
+      function updateMonthPill() {
+        const pill = document.getElementById('month-pill');
+        if (pill) pill.textContent = monthLabelOf(ACTIVE_MONTH_KEY);
+      }
+
+      function setStampSaving() {
+        const el = document.getElementById('save-stamp');
+        const txt = document.getElementById('save-stamp-text');
+        el.classList.remove('saved'); el.classList.add('saving');
+        txt.textContent = 'SAVING…';
+      }
+      function setStampSaved() {
+        const el = document.getElementById('save-stamp');
+        const txt = document.getElementById('save-stamp-text');
+        el.classList.remove('saving'); el.classList.add('saved');
+        txt.textContent = 'AUTO-SAVED · ' + nowTimeStr();
+      }
+
+      function scheduleSave() {
+        memoryFallback = allMonths;
+        setStampSaving();
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveNow, 500);
+      }
+
+      async function saveNow() {
+        // Le mois actif est toujours ré-écrit dans l'objet complet des mois, afin de ne
+        // jamais écraser les mois précédents lors de la sauvegarde.
+        allMonths[ACTIVE_MONTH_KEY] = rows;
+        memoryFallback = allMonths;
+        if (!hasStorage) { setStampSaved(); return; }
+        try {
+          const result = await window.storage.set(STORAGE_KEY, JSON.stringify(allMonths), false);
+          if (!result) { console.error('Storage set returned no result'); }
+          setStampSaved();
+        } catch (e) {
+          console.error('Sauvegarde impossible pour le moment.', e);
+          const txt = document.getElementById('save-stamp-text');
+          txt.textContent = 'SAVE FAILED — RETRYING…';
+          saveTimer = setTimeout(saveNow, 2000);
+        }
+      }
+
+      function esc(str) {
+        const d = document.createElement('div');
+        d.textContent = str == null ? '' : String(str);
+        return d.innerHTML;
+      }
+
+      function focusNextField(currentEl) {
+        const tr = currentEl.closest('tr[data-id]');
+        if (!tr) return;
+        const fields = Array.from(tr.querySelectorAll('[data-field]'));
+        const idx = fields.indexOf(currentEl);
+        if (idx > -1 && idx < fields.length - 1) {
+          const next = fields[idx + 1];
+          next.focus();
+          if (typeof next.select === 'function') next.select();
+        } else {
+          // Dernière cellule de la ligne : passe automatiquement à la première cellule (DATE) de la ligne suivante
+          const nextRow = tr.nextElementSibling;
+          if (nextRow && nextRow.matches('tr[data-id]')) {
+            const firstField = nextRow.querySelector('[data-field]');
+            if (firstField) {
+              firstField.focus();
+              if (typeof firstField.select === 'function') firstField.select();
+            }
+          }
+        }
+      }
+
+      function focusCell(el) {
+        if (!el) return;
+        el.focus();
+        if (typeof el.select === 'function') el.select();
+      }
+
+      // Navigation au clavier avec les flèches directionnelles : déplace uniquement le focus
+      // d'une cellule à l'autre (haut/bas/gauche/droite) — aucun autre effet (pas d'incrément
+      // de nombre, pas de changement de valeur de STATUS, pas de déplacement du curseur texte).
+      function handleArrowNav(ev, el) {
+        const tr = el.closest('tr[data-id]');
+        if (!tr) return;
+        const fields = Array.from(tr.querySelectorAll('[data-field]'));
+        const idx = fields.indexOf(el);
+        if (idx === -1) return;
+
+        if (ev.key === 'ArrowLeft') {
+          ev.preventDefault();
+          if (idx > 0) focusCell(fields[idx - 1]);
+        } else if (ev.key === 'ArrowRight') {
+          ev.preventDefault();
+          if (idx < fields.length - 1) focusCell(fields[idx + 1]);
+        } else if (ev.key === 'ArrowUp') {
+          ev.preventDefault();
+          const prevRow = tr.previousElementSibling;
+          if (prevRow && prevRow.matches('tr[data-id]')) {
+            const prevFields = Array.from(prevRow.querySelectorAll('[data-field]'));
+            focusCell(prevFields[idx]);
+          }
+        } else if (ev.key === 'ArrowDown') {
+          ev.preventDefault();
+          const nextRow = tr.nextElementSibling;
+          if (nextRow && nextRow.matches('tr[data-id]')) {
+            const nextFields = Array.from(nextRow.querySelectorAll('[data-field]'));
+            focusCell(nextFields[idx]);
+          }
+        }
+      }
+
+      function rowHtml(row, idx) {
+        return `
     <tr data-id="${row.id}">
       <td><button type="button" class="row-del" data-del="${row.id}" title="Delete row" aria-label="Delete row">🗑</button></td>
-      <td class="row-idx">${String(idx+1).padStart(2,'0')}</td>
-      <td><input type="text" autocomplete="off" class="cell-input cell-date ${row.dateTouched?'touched':''}" data-field="date" value="${esc(row.date)}"></td>
+      <td class="row-idx">${String(idx + 1).padStart(2, '0')}</td>
+      <td><input type="text" autocomplete="off" class="cell-input cell-date ${row.dateTouched ? 'touched' : ''}" data-field="date" value="${esc(row.date)}"></td>
       <td><input type="text" autocomplete="off" class="cell-input cell-items" data-field="items" placeholder="${row.itemsTouched ? '' : 'SPARE PARTS'}" value="${esc(row.items)}"></td>
       <td><input type="text" inputmode="decimal" autocomplete="off" class="cell-input cell-num" data-field="parcels" placeholder="${row.parcelsTouched ? '' : '0'}" value="${esc(row.parcels)}"></td>
       <td>
@@ -894,741 +1605,751 @@ function rowHtml(row, idx){
       <td class="amount-display" data-role="amount">${fmtMoney(amountOf(row))}</td>
       <td><input type="text" autocomplete="off" class="cell-input cell-dest" data-field="destinations" placeholder="${row.destinationsTouched ? '' : 'e.g. Abidjan'}" value="${esc(row.destinations)}"></td>
       <td>
-        <select class="cell-select ${row.statusTouched ? 'status-'+row.status : 'suggestion'}" data-field="status">
-          <option value="" ${row.status===''?'selected':''}>—</option>
-          ${STATUS_OPTIONS.map(s=>`<option value="${s.id}" ${row.status===s.id?'selected':''}>${s.label}</option>`).join('')}
+        <select class="cell-select ${row.statusTouched ? 'status-' + row.status : 'suggestion'}" data-field="status">
+          <option value="" ${row.status === '' ? 'selected' : ''}>—</option>
+          ${STATUS_OPTIONS.map(s => `<option value="${s.id}" ${row.status === s.id ? 'selected' : ''}>${s.label}</option>`).join('')}
         </select>
       </td>
       <td><input type="text" autocomplete="off" class="cell-input cell-remarks" data-field="remarks" placeholder="${row.remarksTouched ? '' : '—'}" value="${esc(row.remarks)}"></td>
     </tr>
   `;
-}
+      }
 
-function updateFooterTotal(){
-  const total = getVisibleRows().reduce((sum,r)=> sum + amountOf(r), 0);
-  document.getElementById('foot-total').textContent = fmtMoney(total);
-}
+      function updateFooterTotal() {
+        const total = getVisibleRows().reduce((sum, r) => sum + amountOf(r), 0);
+        document.getElementById('foot-total').textContent = fmtMoney(total);
+      }
 
-/* ---------- suggestion en ligne par colonne ----------
-   Chaque colonne saisissable (DATE, ITEMS, PARCELS, UNIT PRICE, DESTINATIONS, REMARKS)
-   propose, dès la frappe, la valeur la plus proche déjà utilisée dans cette même colonne —
-   affichée en surbrillance directement à la suite du texte tapé (aucune liste en dessous).
-   TAB ou ENTRÉE accepte la suggestion ; toute autre sortie du champ l'annule. */
-const AUTOCOMPLETE_FIELDS = ['date','items','parcels','unitPrice','destinations','remarks'];
+      /* ---------- suggestion en ligne par colonne ----------
+         Chaque colonne saisissable (DATE, ITEMS, PARCELS, UNIT PRICE, DESTINATIONS, REMARKS)
+         propose, dès la frappe, la valeur la plus proche déjà utilisée dans cette même colonne —
+         affichée en surbrillance directement à la suite du texte tapé (aucune liste en dessous).
+         TAB ou ENTRÉE accepte la suggestion ; toute autre sortie du champ l'annule. */
+      const AUTOCOMPLETE_FIELDS = ['date', 'items', 'parcels', 'unitPrice', 'destinations', 'remarks'];
 
-function bestAutocompleteMatch(field, typed){
-  if(!typed) return null;
-  const lower = typed.toLowerCase();
-  for(let i = rows.length - 1; i >= 0; i--){
-    const v = String(rows[i][field]==null ? '' : rows[i][field]).trim();
-    if(!v || v.toLowerCase() === lower) continue;
-    if(v.toLowerCase().startsWith(lower)) return v;
-  }
-  return null;
-}
+      function bestAutocompleteMatch(field, typed) {
+        if (!typed) return null;
+        const lower = typed.toLowerCase();
+        for (let i = rows.length - 1; i >= 0; i--) {
+          const v = String(rows[i][field] == null ? '' : rows[i][field]).trim();
+          if (!v || v.toLowerCase() === lower) continue;
+          if (v.toLowerCase().startsWith(lower)) return v;
+        }
+        return null;
+      }
 
-function applyInlineSuggestion(el, field){
-  const typed = el.value;
-  el.dataset.typedValue = typed;
-  if(typeof el.selectionStart === 'number' && (el.selectionStart !== typed.length || el.selectionEnd !== typed.length)){
-    // Le curseur n'est pas en fin de champ (édition au milieu du texte) : pas de suggestion.
-    el.dataset.suggestionPending = '';
-    return;
-  }
-  const match = bestAutocompleteMatch(field, typed);
-  if(match && match.length > typed.length){
-    el.dataset.suggestionPending = '1';
-    el.dataset.suggestionSuppress = '1';
-    el.value = typed + match.slice(typed.length);
-    el.setSelectionRange(typed.length, el.value.length);
-  }else{
-    el.dataset.suggestionPending = '';
-  }
-}
+      function applyInlineSuggestion(el, field) {
+        const typed = el.value;
+        el.dataset.typedValue = typed;
+        if (typeof el.selectionStart === 'number' && (el.selectionStart !== typed.length || el.selectionEnd !== typed.length)) {
+          // Le curseur n'est pas en fin de champ (édition au milieu du texte) : pas de suggestion.
+          el.dataset.suggestionPending = '';
+          return;
+        }
+        const match = bestAutocompleteMatch(field, typed);
+        if (match && match.length > typed.length) {
+          el.dataset.suggestionPending = '1';
+          el.dataset.suggestionSuppress = '1';
+          el.value = typed + match.slice(typed.length);
+          el.setSelectionRange(typed.length, el.value.length);
+        } else {
+          el.dataset.suggestionPending = '';
+        }
+      }
 
-function acceptInlineSuggestion(el, commit){
-  if(el.dataset.suggestionPending === '1'){
-    el.dataset.suggestionPending = '';
-    if(commit) commit();
-  }
-}
+      function acceptInlineSuggestion(el, commit) {
+        if (el.dataset.suggestionPending === '1') {
+          el.dataset.suggestionPending = '';
+          if (commit) commit();
+        }
+      }
 
-function revertInlineSuggestion(el, commit){
-  if(el.dataset.suggestionPending === '1'){
-    const typed = el.dataset.typedValue || '';
-    el.dataset.suggestionSuppress = '1';
-    el.value = typed;
-    el.dataset.suggestionPending = '';
-    if(commit) commit();
-  }
-}
+      function revertInlineSuggestion(el, commit) {
+        if (el.dataset.suggestionPending === '1') {
+          const typed = el.dataset.typedValue || '';
+          el.dataset.suggestionSuppress = '1';
+          el.value = typed;
+          el.dataset.suggestionPending = '';
+          if (commit) commit();
+        }
+      }
 
-/* ---------- filtres par colonne d'en-tête ----------
-   Chaque colonne filtrable (DATE, ITEMS, PARCELS, UNIT PRICE, DESTINATIONS, STATUS, REMARKS)
-   propose un panneau listant les valeurs déjà présentes dans cette colonne, à cocher/décocher
-   comme un filtre Excel. Les filtres de plusieurs colonnes se cumulent (ET logique). */
-const FILTERABLE_FIELDS = ['date','items','parcels','unitPrice','destinations','status','remarks'];
-let activeFilters = {}; // { field: Set(valeurs autorisées) } — absent ou vide = pas de filtre sur cette colonne
+      /* ---------- filtres par colonne d'en-tête ----------
+         Chaque colonne filtrable (DATE, ITEMS, PARCELS, UNIT PRICE, DESTINATIONS, STATUS, REMARKS)
+         propose un panneau listant les valeurs déjà présentes dans cette colonne, à cocher/décocher
+         comme un filtre Excel. Les filtres de plusieurs colonnes se cumulent (ET logique). */
+      const FILTERABLE_FIELDS = ['date', 'items', 'parcels', 'unitPrice', 'destinations', 'status', 'remarks'];
+      let activeFilters = {}; // { field: Set(valeurs autorisées) } — absent ou vide = pas de filtre sur cette colonne
 
-function fieldRawString(row, field){
-  const raw = row[field];
-  return (raw===undefined || raw===null) ? '' : String(raw).trim();
-}
-function uniqueValuesFor(field){
-  const set = new Set();
-  rows.forEach(r=> set.add(fieldRawString(r, field)));
-  return Array.from(set).sort((a,b)=> a.localeCompare(b, 'fr', { numeric:true, sensitivity:'base' }));
-}
-function displayValueFor(field, raw){
-  if(field==='status'){
-    if(raw==='') return '(Vide)';
-    const opt = STATUS_OPTIONS.find(s=>s.id===raw);
-    return opt ? opt.label : raw;
-  }
-  return raw==='' ? '(Vide)' : raw;
-}
-function hasAnyActiveFilter(){
-  return Object.keys(activeFilters).some(f => activeFilters[f] && activeFilters[f].size);
-}
-function getVisibleRows(){
-  const activeFields = Object.keys(activeFilters).filter(f => activeFilters[f] && activeFilters[f].size);
-  if(!activeFields.length) return rows;
-  return rows.filter(r => activeFields.every(field => activeFilters[field].has(fieldRawString(r, field))));
-}
-function updateClearFiltersButton(){
-  const btn = document.getElementById('btn-clear-filters');
-  const countEl = document.getElementById('filter-count');
-  const activeFields = Object.keys(activeFilters).filter(f => activeFilters[f] && activeFilters[f].size);
-  if(!btn || !countEl) return;
-  if(activeFields.length){
-    btn.style.display = 'inline-flex';
-    countEl.textContent = String(activeFields.length);
-  }else{
-    btn.style.display = 'none';
-  }
-}
-function updateFilterButtonStates(){
-  document.querySelectorAll('.filter-btn').forEach(btn=>{
-    const field = btn.dataset.filterField;
-    const active = activeFilters[field] && activeFilters[field].size > 0;
-    btn.classList.toggle('active', !!active);
-  });
-}
-function closeAllFilterPanels(except){
-  document.querySelectorAll('.filter-panel.open').forEach(p=>{
-    if(p !== except) p.classList.remove('open');
-  });
-}
-let filterCloseTimer = null;
-function cancelCloseFilterPanel(){
-  if(filterCloseTimer){ clearTimeout(filterCloseTimer); filterCloseTimer = null; }
-}
-function pointInRect(x, y, rect, pad){
-  return x >= rect.left-pad && x <= rect.right+pad && y >= rect.top-pad && y <= rect.bottom+pad;
-}
-// Ferme le panneau uniquement si le curseur est réellement sorti de la zone combinée
-// (bouton entonnoir + panneau, avec une petite marge pour couvrir l'espace entre les deux).
-// Tant que le curseur reste dans cette zone, le panneau reste fixe et ne disparaît pas.
-function handlePossibleFilterClose(ev, wrap, panel){
-  if(!panel.classList.contains('open')) return;
-  const x = ev.clientX, y = ev.clientY;
-  const wrapRect = wrap.getBoundingClientRect();
-  const panelRect = panel.getBoundingClientRect();
-  if(pointInRect(x, y, wrapRect, 10) || pointInRect(x, y, panelRect, 10)) return;
-  panel.classList.remove('open');
-}
-function positionFilterPanel(panel, anchorBtn){
-  // Le panneau est en position:fixed (donc ancré à la fenêtre, jamais coupé par le
-  // cadre défilant du tableau). On calcule sa position juste sous le bouton entonnoir,
-  // en le basculant au-dessus ou en le recalant horizontalement s'il déborderait de l'écran.
-  const margin = 8;
-  panel.style.visibility = 'hidden';
-  const panelRect = panel.getBoundingClientRect();
-  const btnRect = anchorBtn.getBoundingClientRect();
-  const vw = window.innerWidth, vh = window.innerHeight;
+      function fieldRawString(row, field) {
+        const raw = row[field];
+        return (raw === undefined || raw === null) ? '' : String(raw).trim();
+      }
+      function uniqueValuesFor(field) {
+        const set = new Set();
+        rows.forEach(r => set.add(fieldRawString(r, field)));
+        return Array.from(set).sort((a, b) => a.localeCompare(b, 'fr', { numeric: true, sensitivity: 'base' }));
+      }
+      function displayValueFor(field, raw) {
+        if (field === 'status') {
+          if (raw === '') return '(Vide)';
+          const opt = STATUS_OPTIONS.find(s => s.id === raw);
+          return opt ? opt.label : raw;
+        }
+        return raw === '' ? '(Vide)' : raw;
+      }
+      function hasAnyActiveFilter() {
+        return Object.keys(activeFilters).some(f => activeFilters[f] && activeFilters[f].size);
+      }
+      function getVisibleRows() {
+        const activeFields = Object.keys(activeFilters).filter(f => activeFilters[f] && activeFilters[f].size);
+        if (!activeFields.length) return rows;
+        return rows.filter(r => activeFields.every(field => activeFilters[field].has(fieldRawString(r, field))));
+      }
+      function updateClearFiltersButton() {
+        const btn = document.getElementById('btn-clear-filters');
+        const countEl = document.getElementById('filter-count');
+        const activeFields = Object.keys(activeFilters).filter(f => activeFilters[f] && activeFilters[f].size);
+        if (!btn || !countEl) return;
+        if (activeFields.length) {
+          btn.style.display = 'inline-flex';
+          countEl.textContent = String(activeFields.length);
+        } else {
+          btn.style.display = 'none';
+        }
+      }
+      function updateFilterButtonStates() {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          const field = btn.dataset.filterField;
+          const active = activeFilters[field] && activeFilters[field].size > 0;
+          btn.classList.toggle('active', !!active);
+        });
+      }
+      function closeAllFilterPanels(except) {
+        document.querySelectorAll('.filter-panel.open').forEach(p => {
+          if (p !== except) p.classList.remove('open');
+        });
+      }
+      let filterCloseTimer = null;
+      function cancelCloseFilterPanel() {
+        if (filterCloseTimer) { clearTimeout(filterCloseTimer); filterCloseTimer = null; }
+      }
+      function pointInRect(x, y, rect, pad) {
+        return x >= rect.left - pad && x <= rect.right + pad && y >= rect.top - pad && y <= rect.bottom + pad;
+      }
+      // Ferme le panneau uniquement si le curseur est réellement sorti de la zone combinée
+      // (bouton entonnoir + panneau, avec une petite marge pour couvrir l'espace entre les deux).
+      // Tant que le curseur reste dans cette zone, le panneau reste fixe et ne disparaît pas.
+      function handlePossibleFilterClose(ev, wrap, panel) {
+        if (!panel.classList.contains('open')) return;
+        const x = ev.clientX, y = ev.clientY;
+        const wrapRect = wrap.getBoundingClientRect();
+        const panelRect = panel.getBoundingClientRect();
+        if (pointInRect(x, y, wrapRect, 10) || pointInRect(x, y, panelRect, 10)) return;
+        panel.classList.remove('open');
+      }
+      function positionFilterPanel(panel, anchorBtn) {
+        // Le panneau est en position:fixed (donc ancré à la fenêtre, jamais coupé par le
+        // cadre défilant du tableau). On calcule sa position juste sous le bouton entonnoir,
+        // en le basculant au-dessus ou en le recalant horizontalement s'il déborderait de l'écran.
+        const margin = 8;
+        panel.style.visibility = 'hidden';
+        const panelRect = panel.getBoundingClientRect();
+        const btnRect = anchorBtn.getBoundingClientRect();
+        const vw = window.innerWidth, vh = window.innerHeight;
 
-  let top = btnRect.bottom + 6;
-  if(top + panelRect.height > vh - margin){
-    // Pas assez de place en dessous : on ouvre le panneau au-dessus du bouton.
-    top = Math.max(margin, btnRect.top - 6 - panelRect.height);
-  }
+        let top = btnRect.bottom + 6;
+        if (top + panelRect.height > vh - margin) {
+          // Pas assez de place en dessous : on ouvre le panneau au-dessus du bouton.
+          top = Math.max(margin, btnRect.top - 6 - panelRect.height);
+        }
 
-  let left = btnRect.right - panelRect.width;
-  if(left < margin) left = margin;
-  if(left + panelRect.width > vw - margin) left = vw - margin - panelRect.width;
+        let left = btnRect.right - panelRect.width;
+        if (left < margin) left = margin;
+        if (left + panelRect.width > vw - margin) left = vw - margin - panelRect.width;
 
-  panel.style.top = top + 'px';
-  panel.style.left = left + 'px';
-  panel.style.visibility = '';
-}
-function renderFilterPanel(field){
-  const panel = document.querySelector(`.filter-panel[data-filter-panel="${field}"]`);
-  if(!panel) return;
-  const values = uniqueValuesFor(field);
-  const allowed = activeFilters[field];
-  const isFilteredHere = !!(allowed && allowed.size);
+        panel.style.top = top + 'px';
+        panel.style.left = left + 'px';
+        panel.style.visibility = '';
+      }
+      function renderFilterPanel(field) {
+        const panel = document.querySelector(`.filter-panel[data-filter-panel="${field}"]`);
+        if (!panel) return;
+        const values = uniqueValuesFor(field);
+        const allowed = activeFilters[field];
+        const isFilteredHere = !!(allowed && allowed.size);
 
-  panel.innerHTML = `
+        panel.innerHTML = `
     <input type="text" data-role="filter-search" placeholder="Rechercher…">
     <div class="filter-actions">
       <button type="button" data-role="select-all">Tout sélectionner</button>
       <button type="button" data-role="clear">Effacer</button>
     </div>
     <div class="filter-list" data-role="filter-list">
-      ${values.length ? values.map(v=>{
-        const checked = isFilteredHere ? allowed.has(v) : true;
-        return `<label><input type="checkbox" data-role="filter-checkbox" value="${esc(v)}" ${checked?'checked':''}><span>${esc(displayValueFor(field, v))}</span></label>`;
-      }).join('') : `<div class="filter-empty">Aucune valeur</div>`}
+      ${values.length ? values.map(v => {
+          const checked = isFilteredHere ? allowed.has(v) : true;
+          return `<label><input type="checkbox" data-role="filter-checkbox" value="${esc(v)}" ${checked ? 'checked' : ''}><span>${esc(displayValueFor(field, v))}</span></label>`;
+        }).join('') : `<div class="filter-empty">Aucune valeur</div>`}
     </div>
   `;
 
-  const searchInput = panel.querySelector('[data-role="filter-search"]');
-  searchInput.addEventListener('click', ev=> ev.stopPropagation());
-  searchInput.addEventListener('input', ()=>{
-    const q = searchInput.value.trim().toLowerCase();
-    panel.querySelectorAll('.filter-list label').forEach(label=>{
-      label.style.display = label.textContent.toLowerCase().includes(q) ? '' : 'none';
-    });
-  });
-
-  const applyFromPanel = ()=>{
-    const checkboxes = Array.from(panel.querySelectorAll('[data-role="filter-checkbox"]'));
-    const checkedValues = checkboxes.filter(cb=>cb.checked).map(cb=>cb.value);
-    if(checkedValues.length === checkboxes.length){
-      delete activeFilters[field]; // tout coché = pas de filtre sur cette colonne
-    }else{
-      activeFilters[field] = new Set(checkedValues);
-    }
-    updateFilterButtonStates();
-    updateClearFiltersButton();
-    render();
-  };
-
-  panel.querySelector('[data-role="select-all"]').addEventListener('click', (ev)=>{
-    ev.stopPropagation();
-    panel.querySelectorAll('[data-role="filter-checkbox"]').forEach(cb=> cb.checked = true);
-    applyFromPanel();
-  });
-  panel.querySelector('[data-role="clear"]').addEventListener('click', (ev)=>{
-    ev.stopPropagation();
-    panel.querySelectorAll('[data-role="filter-checkbox"]').forEach(cb=> cb.checked = false);
-    applyFromPanel();
-  });
-  panel.querySelectorAll('[data-role="filter-checkbox"]').forEach(cb=>{
-    cb.addEventListener('click', ev=> ev.stopPropagation());
-    cb.addEventListener('change', applyFromPanel);
-  });
-}
-function clearAllFilters(){
-  activeFilters = {};
-  updateFilterButtonStates();
-  updateClearFiltersButton();
-}
-
-function render(){
-  const body = document.getElementById('ledger-body');
-  const visible = getVisibleRows();
-  if(!rows.length){
-    body.innerHTML = `<tr class="empty-row"><td colspan="10">Aucune ligne. Cliquez sur « + Ajouter une nouvelle ligne » pour commencer le manifeste du mois.</td></tr>`;
-  }else if(!visible.length){
-    body.innerHTML = `<tr class="empty-row"><td colspan="10">Aucune ligne ne correspond aux filtres actifs. <button type="button" id="empty-clear-filters" style="border:none;background:transparent;color:var(--accent);cursor:pointer;font-weight:600;text-decoration:underline;">Réinitialiser les filtres</button></td></tr>`;
-  }else{
-    body.innerHTML = visible.map(rowHtml).join('');
-  }
-  updateFooterTotal();
-  wireRowEvents();
-  updateFilterButtonStates();
-  updateClearFiltersButton();
-  const emptyClearBtn = document.getElementById('empty-clear-filters');
-  if(emptyClearBtn) emptyClearBtn.addEventListener('click', ()=>{ clearAllFilters(); render(); });
-}
-
-function wireRowEvents(){
-  document.querySelectorAll('#ledger-body tr[data-id]').forEach(tr=>{
-    const id = tr.dataset.id;
-    const row = rows.find(r=>r.id===id);
-    if(!row) return;
-
-    tr.querySelectorAll('[data-field]').forEach(el=>{
-      const field = el.dataset.field;
-      const isAutocomplete = AUTOCOMPLETE_FIELDS.includes(field);
-      const handler = ()=>{
-        row[field] = el.value;
-        if(field==='date'){ row.dateTouched = true; el.classList.add('touched'); }
-        if(field==='items'){ row.itemsTouched = true; }
-        if(field==='destinations'){ row.destinationsTouched = true; }
-        if(field==='remarks'){ row.remarksTouched = true; }
-        if(field==='status'){
-          row.statusTouched = true;
-          el.className = 'cell-select status-' + row.status;
-        }
-        if(field==='parcels' || field==='unitPrice'){
-          if(field==='parcels'){ row.parcelsTouched = true; }
-          const amtCell = tr.querySelector('[data-role="amount"]');
-          amtCell.textContent = fmtMoney(amountOf(row));
-          updateFooterTotal();
-        }
-        scheduleSave();
-      };
-      el.addEventListener('input', handler);
-      el.addEventListener('change', handler);
-
-      // Suggestion en ligne : dès la frappe, propose la valeur la plus proche déjà
-      // utilisée dans cette colonne, en surbrillance à la suite du texte tapé.
-      if(isAutocomplete){
-        el.addEventListener('input', ()=>{
-          if(el.dataset.suggestionSuppress === '1'){ el.dataset.suggestionSuppress = ''; return; }
-          applyInlineSuggestion(el, field);
+        const searchInput = panel.querySelector('[data-role="filter-search"]');
+        searchInput.addEventListener('click', ev => ev.stopPropagation());
+        searchInput.addEventListener('input', () => {
+          const q = searchInput.value.trim().toLowerCase();
+          panel.querySelectorAll('.filter-list label').forEach(label => {
+            label.style.display = label.textContent.toLowerCase().includes(q) ? '' : 'none';
+          });
         });
-        el.addEventListener('blur', ()=>{
-          revertInlineSuggestion(el, handler);
+
+        const applyFromPanel = () => {
+          const checkboxes = Array.from(panel.querySelectorAll('[data-role="filter-checkbox"]'));
+          const checkedValues = checkboxes.filter(cb => cb.checked).map(cb => cb.value);
+          if (checkedValues.length === checkboxes.length) {
+            delete activeFilters[field]; // tout coché = pas de filtre sur cette colonne
+          } else {
+            activeFilters[field] = new Set(checkedValues);
+          }
+          updateFilterButtonStates();
+          updateClearFiltersButton();
+          render();
+        };
+
+        panel.querySelector('[data-role="select-all"]').addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          panel.querySelectorAll('[data-role="filter-checkbox"]').forEach(cb => cb.checked = true);
+          applyFromPanel();
+        });
+        panel.querySelector('[data-role="clear"]').addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          panel.querySelectorAll('[data-role="filter-checkbox"]').forEach(cb => cb.checked = false);
+          applyFromPanel();
+        });
+        panel.querySelectorAll('[data-role="filter-checkbox"]').forEach(cb => {
+          cb.addEventListener('click', ev => ev.stopPropagation());
+          cb.addEventListener('change', applyFromPanel);
+        });
+      }
+      function clearAllFilters() {
+        activeFilters = {};
+        updateFilterButtonStates();
+        updateClearFiltersButton();
+      }
+
+      function render() {
+        const body = document.getElementById('ledger-body');
+        const visible = getVisibleRows();
+        if (!rows.length) {
+          body.innerHTML = `<tr class="empty-row"><td colspan="10">Aucune ligne. Cliquez sur « + Ajouter une nouvelle ligne » pour commencer le manifeste du mois.</td></tr>`;
+        } else if (!visible.length) {
+          body.innerHTML = `<tr class="empty-row"><td colspan="10">Aucune ligne ne correspond aux filtres actifs. <button type="button" id="empty-clear-filters" style="border:none;background:transparent;color:var(--accent);cursor:pointer;font-weight:600;text-decoration:underline;">Réinitialiser les filtres</button></td></tr>`;
+        } else {
+          body.innerHTML = visible.map(rowHtml).join('');
+        }
+        updateFooterTotal();
+        wireRowEvents();
+        updateFilterButtonStates();
+        updateClearFiltersButton();
+        const emptyClearBtn = document.getElementById('empty-clear-filters');
+        if (emptyClearBtn) emptyClearBtn.addEventListener('click', () => { clearAllFilters(); render(); });
+      }
+
+      function wireRowEvents() {
+        document.querySelectorAll('#ledger-body tr[data-id]').forEach(tr => {
+          const id = tr.dataset.id;
+          const row = rows.find(r => r.id === id);
+          if (!row) return;
+
+          tr.querySelectorAll('[data-field]').forEach(el => {
+            const field = el.dataset.field;
+            const isAutocomplete = AUTOCOMPLETE_FIELDS.includes(field);
+            const handler = () => {
+              row[field] = el.value;
+              if (field === 'date') { row.dateTouched = true; el.classList.add('touched'); }
+              if (field === 'items') { row.itemsTouched = true; }
+              if (field === 'destinations') { row.destinationsTouched = true; }
+              if (field === 'remarks') { row.remarksTouched = true; }
+              if (field === 'status') {
+                row.statusTouched = true;
+                el.className = 'cell-select status-' + row.status;
+              }
+              if (field === 'parcels' || field === 'unitPrice') {
+                if (field === 'parcels') { row.parcelsTouched = true; }
+                const amtCell = tr.querySelector('[data-role="amount"]');
+                amtCell.textContent = fmtMoney(amountOf(row));
+                updateFooterTotal();
+              }
+              scheduleSave();
+            };
+            el.addEventListener('input', handler);
+            el.addEventListener('change', handler);
+
+            // Suggestion en ligne : dès la frappe, propose la valeur la plus proche déjà
+            // utilisée dans cette colonne, en surbrillance à la suite du texte tapé.
+            if (isAutocomplete) {
+              el.addEventListener('input', () => {
+                if (el.dataset.suggestionSuppress === '1') { el.dataset.suggestionSuppress = ''; return; }
+                applyInlineSuggestion(el, field);
+              });
+              el.addEventListener('blur', () => {
+                revertInlineSuggestion(el, handler);
+              });
+            }
+
+            // Fonction "au suivant" : après la saisie dans une cellule (à partir de la première, DATE),
+            // la touche ENTRÉE envoie automatiquement le focus vers la cellule suivante de la ligne.
+            // Les flèches directionnelles déplacent uniquement le focus dans le tableau (haut/bas/gauche/droite).
+            el.addEventListener('keydown', (ev) => {
+              if (ev.key === 'Enter') {
+                ev.preventDefault();
+                if (isAutocomplete) acceptInlineSuggestion(el, handler);
+                focusNextField(el);
+              } else if (ev.key === 'Tab') {
+                if (isAutocomplete) acceptInlineSuggestion(el, handler);
+              } else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight' || ev.key === 'ArrowUp' || ev.key === 'ArrowDown') {
+                handleArrowNav(ev, el);
+              }
+            });
+
+            // Raccourci SHIFT : tant que la cellule STATUS est encore grisée (non confirmée),
+            // une pression sur SHIFT valide automatiquement la suggestion « Collected ».
+            if (field === 'status') {
+              el.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Shift' && !row.statusTouched) {
+                  ev.preventDefault();
+                  row.statusTouched = true;
+                  el.className = 'cell-select status-' + row.status;
+                  scheduleSave();
+                }
+              });
+            }
+          });
+
+          const delBtn = tr.querySelector('[data-del]');
+          delBtn.addEventListener('click', () => {
+            if (!confirm('Delete this row? This cannot be undone.')) return;
+            rows = rows.filter(r => r.id !== id);
+            render();
+            scheduleSave();
+          });
         });
       }
 
-      // Fonction "au suivant" : après la saisie dans une cellule (à partir de la première, DATE),
-      // la touche ENTRÉE envoie automatiquement le focus vers la cellule suivante de la ligne.
-      // Les flèches directionnelles déplacent uniquement le focus dans le tableau (haut/bas/gauche/droite).
-      el.addEventListener('keydown', (ev)=>{
-        if(ev.key === 'Enter'){
-          ev.preventDefault();
-          if(isAutocomplete) acceptInlineSuggestion(el, handler);
-          focusNextField(el);
-        }else if(ev.key === 'Tab'){
-          if(isAutocomplete) acceptInlineSuggestion(el, handler);
-        }else if(ev.key === 'ArrowLeft' || ev.key === 'ArrowRight' || ev.key === 'ArrowUp' || ev.key === 'ArrowDown'){
-          handleArrowNav(ev, el);
-        }
-      });
+      function handleAddRow() {
+        // Tous les messages grisés (suggestions) non confirmés sur les lignes précédentes
+        // s'effacent automatiquement dès qu'une nouvelle ligne est créée.
+        rows.forEach(r => {
+          if (!r.dateTouched) { r.date = ''; r.dateTouched = true; }
+          if (!r.itemsTouched) { r.itemsTouched = true; }
+          if (!r.parcelsTouched) { r.parcelsTouched = true; }
+          if (!r.destinationsTouched) { r.destinationsTouched = true; }
+          if (!r.statusTouched) { r.status = ''; r.statusTouched = true; }
+          if (!r.remarksTouched) { r.remarksTouched = true; }
+        });
+        // Si des filtres sont actifs, on les réinitialise pour que la nouvelle ligne soit visible immédiatement.
+        if (hasAnyActiveFilter()) clearAllFilters();
+        rows.push(newRow());
+        render();
+        scheduleSave();
+        const body = document.getElementById('ledger-body');
+        const last = body.querySelector('tr:last-child input.cell-items');
+        if (last) last.focus();
+      }
+      document.getElementById('btn-add-row-bottom').addEventListener('click', handleAddRow);
 
-      // Raccourci SHIFT : tant que la cellule STATUS est encore grisée (non confirmée),
-      // une pression sur SHIFT valide automatiquement la suggestion « Collected ».
-      if(field==='status'){
-        el.addEventListener('keydown', (ev)=>{
-          if(ev.key === 'Shift' && !row.statusTouched){
-            ev.preventDefault();
-            row.statusTouched = true;
-            el.className = 'cell-select status-' + row.status;
-            scheduleSave();
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          cancelCloseFilterPanel();
+          const field = btn.dataset.filterField;
+          const panel = document.querySelector(`.filter-panel[data-filter-panel="${field}"]`);
+          if (!panel) return;
+          // Un clic sur le bouton d'une colonne déjà ouverte la referme (bascule ouvert/fermé) ;
+          // un clic ailleurs referme les autres colonnes puis ouvre celle-ci.
+          const isOpen = panel.classList.contains('open');
+          closeAllFilterPanels();
+          if (!isOpen) {
+            renderFilterPanel(field);
+            panel.classList.add('open');
+            positionFilterPanel(panel, btn);
           }
         });
+      });
+      // Fermeture automatique dès que la souris quitte la colonne (bouton entonnoir + panneau
+      // ouvert) : un léger délai évite la fermeture lorsqu'on traverse simplement vers le panneau.
+      document.querySelectorAll('.th-filter-wrap').forEach(wrap => {
+        const btn = wrap.querySelector('.filter-btn');
+        const field = btn && btn.dataset.filterField;
+        const panel = field ? document.querySelector(`.filter-panel[data-filter-panel="${field}"]`) : null;
+        if (!panel) return;
+        wrap.addEventListener('mouseleave', (ev) => handlePossibleFilterClose(ev, wrap, panel));
+        panel.addEventListener('mouseleave', (ev) => handlePossibleFilterClose(ev, wrap, panel));
+      });
+      document.addEventListener('click', (ev) => {
+        if (!ev.target.closest('.th-filter-wrap') && !ev.target.closest('.filter-panel')) closeAllFilterPanels();
+      });
+      window.addEventListener('resize', () => {
+        const openPanel = document.querySelector('.filter-panel.open');
+        if (!openPanel) return;
+        const field = openPanel.dataset.filterPanel;
+        const btn = document.querySelector(`.filter-btn[data-filter-field="${field}"]`);
+        if (btn) positionFilterPanel(openPanel, btn);
+      });
+      document.addEventListener('scroll', () => {
+        closeAllFilterPanels();
+      }, true);
+      document.getElementById('btn-clear-filters').addEventListener('click', () => {
+        clearAllFilters();
+        render();
+      });
+
+      document.getElementById('btn-import').addEventListener('click', () => {
+        const plan = (authCreds && authCreds.plan) ? authCreds.plan : 'standard';
+        if (plan === 'standard') {
+          alert("Cette option n'est pas incluse dans votre abonnement.\n\nL'importation requiert l'option Medium (7000 FCFA) ou Premium (10000 FCFA).\nVous pouvez modifier votre abonnement dans la section « Compte ».");
+          return;
+        }
+        document.getElementById('import-file-input').click();
+      });
+
+      document.getElementById('import-file-input').addEventListener('change', async (ev) => {
+        const file = ev.target.files && ev.target.files[0];
+        if (!file) return;
+        const importBtn = document.getElementById('btn-import');
+        const originalLabel = importBtn.textContent;
+        importBtn.disabled = true;
+        importBtn.textContent = '⬆ Import…';
+
+        try {
+          const ext = (file.name.split('.').pop() || '').toLowerCase();
+          let table;
+          if (ext === 'xlsx' || ext === 'xls') {
+            if (typeof ExcelJS === 'undefined') throw new Error('ExcelJS non chargé');
+            table = await parseXlsxFile(file);
+          } else {
+            table = parseDelimitedText(await file.text());
+          }
+
+          if (!table.length) throw new Error('Fichier vide');
+
+          const headerCells = table[0];
+          const fieldMap = buildFieldMap(headerCells);
+          if (Object.keys(fieldMap).length === 0) {
+            alert("Aucune colonne reconnue dans l'en-tête du fichier (DATE, ITEMS, NUMBER OF PARCELS, UNIT PRICE, DESTINATIONS, STATUS, REMARKS attendues). Import annulé.");
+            return;
+          }
+
+          const importedRows = table
+            .slice(1)
+            .filter(cells => !isBlankRow(cells) && !isTotalRow(cells))
+            .map(cells => rowFromMappedCells(cells, fieldMap));
+
+          if (!importedRows.length) {
+            alert("Aucune ligne exploitable trouvée dans ce fichier.");
+            return;
+          }
+
+          // Remplace automatiquement le mois affiché à l'écran (mois en cours) — visible
+          // immédiatement et pris en compte dans le prochain export Excel. Les autres mois
+          // déjà enregistrés ne sont pas affectés.
+          rows = importedRows;
+          allMonths[ACTIVE_MONTH_KEY] = rows;
+          render();
+          scheduleSave();
+        } catch (err) {
+          console.error("Import impossible.", err);
+          alert("Le fichier n'a pas pu être importé. Vérifiez son format (.xlsx ou .csv) et réessayez.");
+        } finally {
+          importBtn.disabled = false;
+          importBtn.textContent = originalLabel;
+          ev.target.value = '';
+        }
+      });
+
+      document.getElementById('btn-refresh').addEventListener('click', async () => {
+        await loadRows();
+        render();
+      });
+
+      async function generateAndDownloadExport() {
+        if (typeof ExcelJS === 'undefined') {
+          alert("La bibliothèque Excel n'a pas pu se charger (connexion réseau). Réessayez dans un instant.");
+          return false;
+        }
+        try {
+          // S'assurer que le mois actif en mémoire est bien celui affiché avant l'export.
+          allMonths[ACTIVE_MONTH_KEY] = rows;
+
+          const headers = ['DATE', 'ITEMS', 'NUMBER OF PARCELS', 'UNIT PRICE OR DECLARE VALUE', 'AMOUNT', 'DESTINATIONS', 'STATUS', 'REMARKS'];
+          const statusLabel = (id) => (STATUS_OPTIONS.find(s => s.id === id) || {}).label || id;
+          const thinBorder = {
+            top: { style: 'thin', color: { argb: 'FF17212B' } },
+            left: { style: 'thin', color: { argb: 'FF17212B' } },
+            bottom: { style: 'thin', color: { argb: 'FF17212B' } },
+            right: { style: 'thin', color: { argb: 'FF17212B' } }
+          };
+
+          const wb = new ExcelJS.Workbook();
+          wb.creator = 'CATRANS TRANSPORTATION FEES';
+
+          // Une feuille par mois connu, triée du plus ancien au plus récent — chaque mois
+          // clos reste figé sous son propre nom, et le mois en cours continue de se remplir.
+          const monthKeys = Object.keys(allMonths).sort();
+
+          monthKeys.forEach(key => {
+            const monthRows = allMonths[key] || [];
+            const ws = wb.addWorksheet(sheetNameOf(key));
+            ws.columns = [
+              { width: 13 }, { width: 24 }, { width: 16 }, { width: 22 },
+              { width: 16 }, { width: 20 }, { width: 14 }, { width: 26 }
+            ];
+
+            const headerRow = ws.addRow(headers);
+            headerRow.eachCell(cell => {
+              cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+              cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF17212B' } };
+              cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+              cell.border = thinBorder;
+            });
+            headerRow.height = 26;
+
+            monthRows.forEach(r => {
+              const amt = amountOf(r);
+              const parcelsVal = r.parcels === '' || r.parcels == null ? null : Number(r.parcels);
+              const unitPriceVal = r.unitPrice === '' || r.unitPrice == null ? null : Number(r.unitPrice);
+              const dataRow = ws.addRow([r.date, r.items, parcelsVal, unitPriceVal, amt, r.destinations, statusLabel(r.status), r.remarks]);
+              dataRow.eachCell({ includeEmpty: true }, cell => {
+                cell.border = thinBorder;
+                cell.alignment = { vertical: 'middle', wrapText: true };
+              });
+              dataRow.getCell(3).numFmt = '#,##0';
+              dataRow.getCell(4).numFmt = '#,##0" FCFA"';
+              dataRow.getCell(5).numFmt = '#,##0" FCFA"';
+              dataRow.getCell(3).alignment = { vertical: 'middle', horizontal: 'right' };
+              dataRow.getCell(4).alignment = { vertical: 'middle', horizontal: 'right' };
+              dataRow.getCell(5).alignment = { vertical: 'middle', horizontal: 'right' };
+              dataRow.getCell(5).font = { bold: true, color: { argb: 'FFB5541C' } };
+            });
+
+            const total = monthRows.reduce((sum, r) => sum + amountOf(r), 0);
+            const totalRow = ws.addRow(['', '', 'TOTAL AMOUNT', '', total, '', '', '']);
+            ws.mergeCells(totalRow.number, 3, totalRow.number, 4);
+            totalRow.eachCell({ includeEmpty: true }, cell => { cell.border = thinBorder; });
+            totalRow.getCell(3).font = { bold: true };
+            totalRow.getCell(3).alignment = { horizontal: 'center', vertical: 'middle' };
+            totalRow.getCell(5).font = { bold: true, color: { argb: 'FFB5541C' } };
+            totalRow.getCell(5).alignment = { horizontal: 'right', vertical: 'middle' };
+            totalRow.getCell(5).numFmt = '#,##0" FCFA"';
+            totalRow.getCell(5).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFBF9F4' } };
+
+            ws.views = [{ state: 'frozen', ySplit: 1 }];
+          });
+
+          const buffer = await wb.xlsx.writeBuffer();
+          const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = exportFileName();
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          return true;
+        } catch (err) {
+          console.error('Export Excel impossible.', err);
+          alert("Une erreur est survenue pendant la génération du fichier Excel. Réessayez.");
+          return false;
+        }
       }
-    });
 
-    const delBtn = tr.querySelector('[data-del]');
-    delBtn.addEventListener('click', ()=>{
-      if(!confirm('Delete this row? This cannot be undone.')) return;
-      rows = rows.filter(r=>r.id!==id);
-      render();
-      scheduleSave();
-    });
-  });
-}
-
-function handleAddRow(){
-  // Tous les messages grisés (suggestions) non confirmés sur les lignes précédentes
-  // s'effacent automatiquement dès qu'une nouvelle ligne est créée.
-  rows.forEach(r=>{
-    if(!r.dateTouched){ r.date=''; r.dateTouched=true; }
-    if(!r.itemsTouched){ r.itemsTouched=true; }
-    if(!r.parcelsTouched){ r.parcelsTouched=true; }
-    if(!r.destinationsTouched){ r.destinationsTouched=true; }
-    if(!r.statusTouched){ r.status=''; r.statusTouched=true; }
-    if(!r.remarksTouched){ r.remarksTouched=true; }
-  });
-  // Si des filtres sont actifs, on les réinitialise pour que la nouvelle ligne soit visible immédiatement.
-  if(hasAnyActiveFilter()) clearAllFilters();
-  rows.push(newRow());
-  render();
-  scheduleSave();
-  const body = document.getElementById('ledger-body');
-  const last = body.querySelector('tr:last-child input.cell-items');
-  if(last) last.focus();
-}
-document.getElementById('btn-add-row-bottom').addEventListener('click', handleAddRow);
-
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click', (ev)=>{
-    ev.stopPropagation();
-    cancelCloseFilterPanel();
-    const field = btn.dataset.filterField;
-    const panel = document.querySelector(`.filter-panel[data-filter-panel="${field}"]`);
-    if(!panel) return;
-    // Un clic sur le bouton d'une colonne déjà ouverte la referme (bascule ouvert/fermé) ;
-    // un clic ailleurs referme les autres colonnes puis ouvre celle-ci.
-    const isOpen = panel.classList.contains('open');
-    closeAllFilterPanels();
-    if(!isOpen){
-      renderFilterPanel(field);
-      panel.classList.add('open');
-      positionFilterPanel(panel, btn);
-    }
-  });
-});
-// Fermeture automatique dès que la souris quitte la colonne (bouton entonnoir + panneau
-// ouvert) : un léger délai évite la fermeture lorsqu'on traverse simplement vers le panneau.
-document.querySelectorAll('.th-filter-wrap').forEach(wrap=>{
-  const btn = wrap.querySelector('.filter-btn');
-  const field = btn && btn.dataset.filterField;
-  const panel = field ? document.querySelector(`.filter-panel[data-filter-panel="${field}"]`) : null;
-  if(!panel) return;
-  wrap.addEventListener('mouseleave', (ev)=> handlePossibleFilterClose(ev, wrap, panel));
-  panel.addEventListener('mouseleave', (ev)=> handlePossibleFilterClose(ev, wrap, panel));
-});
-document.addEventListener('click', (ev)=>{
-  if(!ev.target.closest('.th-filter-wrap') && !ev.target.closest('.filter-panel')) closeAllFilterPanels();
-});
-window.addEventListener('resize', ()=>{
-  const openPanel = document.querySelector('.filter-panel.open');
-  if(!openPanel) return;
-  const field = openPanel.dataset.filterPanel;
-  const btn = document.querySelector(`.filter-btn[data-filter-field="${field}"]`);
-  if(btn) positionFilterPanel(openPanel, btn);
-});
-document.addEventListener('scroll', ()=>{
-  closeAllFilterPanels();
-}, true);
-document.getElementById('btn-clear-filters').addEventListener('click', ()=>{
-  clearAllFilters();
-  render();
-});
-
-document.getElementById('btn-import').addEventListener('click', ()=>{
-  const plan = (authCreds && authCreds.plan) ? authCreds.plan : 'standard';
-  if(plan === 'standard'){
-    alert("Cette option n'est pas incluse dans votre abonnement.\n\nL'importation requiert l'option Medium (7000 FCFA) ou Premium (10000 FCFA).\nVous pouvez modifier votre abonnement dans la section « Compte ».");
-    return;
-  }
-  document.getElementById('import-file-input').click();
-});
-
-document.getElementById('import-file-input').addEventListener('change', async (ev)=>{
-  const file = ev.target.files && ev.target.files[0];
-  if(!file) return;
-  const importBtn = document.getElementById('btn-import');
-  const originalLabel = importBtn.textContent;
-  importBtn.disabled = true;
-  importBtn.textContent = '⬆ Import…';
-
-  try{
-    const ext = (file.name.split('.').pop() || '').toLowerCase();
-    let table;
-    if(ext === 'xlsx' || ext === 'xls'){
-      if(typeof ExcelJS === 'undefined') throw new Error('ExcelJS non chargé');
-      table = await parseXlsxFile(file);
-    }else{
-      table = parseDelimitedText(await file.text());
-    }
-
-    if(!table.length) throw new Error('Fichier vide');
-
-    const headerCells = table[0];
-    const fieldMap = buildFieldMap(headerCells);
-    if(Object.keys(fieldMap).length === 0){
-      alert("Aucune colonne reconnue dans l'en-tête du fichier (DATE, ITEMS, NUMBER OF PARCELS, UNIT PRICE, DESTINATIONS, STATUS, REMARKS attendues). Import annulé.");
-      return;
-    }
-
-    const importedRows = table
-      .slice(1)
-      .filter(cells => !isBlankRow(cells) && !isTotalRow(cells))
-      .map(cells => rowFromMappedCells(cells, fieldMap));
-
-    if(!importedRows.length){
-      alert("Aucune ligne exploitable trouvée dans ce fichier.");
-      return;
-    }
-
-    // Remplace automatiquement le mois affiché à l'écran (mois en cours) — visible
-    // immédiatement et pris en compte dans le prochain export Excel. Les autres mois
-    // déjà enregistrés ne sont pas affectés.
-    rows = importedRows;
-    allMonths[ACTIVE_MONTH_KEY] = rows;
-    render();
-    scheduleSave();
-  }catch(err){
-    console.error("Import impossible.", err);
-    alert("Le fichier n'a pas pu être importé. Vérifiez son format (.xlsx ou .csv) et réessayez.");
-  }finally{
-    importBtn.disabled = false;
-    importBtn.textContent = originalLabel;
-    ev.target.value = '';
-  }
-});
-
-document.getElementById('btn-refresh').addEventListener('click', async ()=>{
-  await loadRows();
-  render();
-});
-
-async function generateAndDownloadExport(){
-  if(typeof ExcelJS === 'undefined'){
-    alert("La bibliothèque Excel n'a pas pu se charger (connexion réseau). Réessayez dans un instant.");
-    return false;
-  }
-  try{
-    // S'assurer que le mois actif en mémoire est bien celui affiché avant l'export.
-    allMonths[ACTIVE_MONTH_KEY] = rows;
-
-    const headers = ['DATE','ITEMS','NUMBER OF PARCELS','UNIT PRICE OR DECLARE VALUE','AMOUNT','DESTINATIONS','STATUS','REMARKS'];
-    const statusLabel = (id)=> (STATUS_OPTIONS.find(s=>s.id===id)||{}).label || id;
-    const thinBorder = {
-      top:{ style:'thin', color:{ argb:'FF17212B' } },
-      left:{ style:'thin', color:{ argb:'FF17212B' } },
-      bottom:{ style:'thin', color:{ argb:'FF17212B' } },
-      right:{ style:'thin', color:{ argb:'FF17212B' } }
-    };
-
-    const wb = new ExcelJS.Workbook();
-    wb.creator = 'CATRANS TRANSPORTATION FEES';
-
-    // Une feuille par mois connu, triée du plus ancien au plus récent — chaque mois
-    // clos reste figé sous son propre nom, et le mois en cours continue de se remplir.
-    const monthKeys = Object.keys(allMonths).sort();
-
-    monthKeys.forEach(key=>{
-      const monthRows = allMonths[key] || [];
-      const ws = wb.addWorksheet(sheetNameOf(key));
-      ws.columns = [
-        { width:13 }, { width:24 }, { width:16 }, { width:22 },
-        { width:16 }, { width:20 }, { width:14 }, { width:26 }
-      ];
-
-      const headerRow = ws.addRow(headers);
-      headerRow.eachCell(cell=>{
-        cell.font = { bold:true, color:{ argb:'FFFFFFFF' } };
-        cell.fill = { type:'pattern', pattern:'solid', fgColor:{ argb:'FF17212B' } };
-        cell.alignment = { vertical:'middle', horizontal:'center', wrapText:true };
-        cell.border = thinBorder;
+      /* ---------- fenêtres modales génériques (compte, mot de passe oublié, export) ---------- */
+      function openModal(id) {
+        document.getElementById(id).classList.add('open');
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+      }
+      document.querySelectorAll('[data-close-modal]').forEach(btn => {
+        btn.addEventListener('click', () => closeModal(btn.dataset.closeModal));
       });
-      headerRow.height = 26;
-
-      monthRows.forEach(r=>{
-        const amt = amountOf(r);
-        const parcelsVal = r.parcels==='' || r.parcels==null ? null : Number(r.parcels);
-        const unitPriceVal = r.unitPrice==='' || r.unitPrice==null ? null : Number(r.unitPrice);
-        const dataRow = ws.addRow([r.date, r.items, parcelsVal, unitPriceVal, amt, r.destinations, statusLabel(r.status), r.remarks]);
-        dataRow.eachCell({ includeEmpty:true }, cell=>{
-          cell.border = thinBorder;
-          cell.alignment = { vertical:'middle', wrapText:true };
+      document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (ev) => {
+          if (ev.target === overlay) closeModal(overlay.id);
         });
-        dataRow.getCell(3).numFmt = '#,##0';
-        dataRow.getCell(4).numFmt = '#,##0" FCFA"';
-        dataRow.getCell(5).numFmt = '#,##0" FCFA"';
-        dataRow.getCell(3).alignment = { vertical:'middle', horizontal:'right' };
-        dataRow.getCell(4).alignment = { vertical:'middle', horizontal:'right' };
-        dataRow.getCell(5).alignment = { vertical:'middle', horizontal:'right' };
-        dataRow.getCell(5).font = { bold:true, color:{ argb:'FFB5541C' } };
       });
 
-      const total = monthRows.reduce((sum,r)=> sum + amountOf(r), 0);
-      const totalRow = ws.addRow(['', '', 'TOTAL AMOUNT', '', total, '', '', '']);
-      ws.mergeCells(totalRow.number, 3, totalRow.number, 4);
-      totalRow.eachCell({ includeEmpty:true }, cell=>{ cell.border = thinBorder; });
-      totalRow.getCell(3).font = { bold:true };
-      totalRow.getCell(3).alignment = { horizontal:'center', vertical:'middle' };
-      totalRow.getCell(5).font = { bold:true, color:{ argb:'FFB5541C' } };
-      totalRow.getCell(5).alignment = { horizontal:'right', vertical:'middle' };
-      totalRow.getCell(5).numFmt = '#,##0" FCFA"';
-      totalRow.getCell(5).fill = { type:'pattern', pattern:'solid', fgColor:{ argb:'FFFBF9F4' } };
+      function showFieldMessage(el, text) {
+        el.textContent = text;
+        el.classList.add('show');
+      }
+      function hideFieldMessage(el) {
+        el.textContent = '';
+        el.classList.remove('show');
+      }
 
-      ws.views = [{ state:'frozen', ySplit:1 }];
-    });
+      /* ---------- écran de connexion ---------- */
+      const loginScreen = document.getElementById('login-screen');
+      const loginForm = document.getElementById('login-form');
+      const loginError = document.getElementById('login-error');
 
-    const buffer = await wb.xlsx.writeBuffer();
-    const blob = new Blob([buffer], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = exportFileName();
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    return true;
-  }catch(err){
-    console.error('Export Excel impossible.', err);
-    alert("Une erreur est survenue pendant la génération du fichier Excel. Réessayez.");
-    return false;
-  }
-}
+      function showLoginScreen() {
+        document.getElementById('login-username').value = '';
+        document.getElementById('login-password').value = '';
+        hideFieldMessage(loginError);
+        loginScreen.style.display = 'flex';
+        setTimeout(() => document.getElementById('login-username').focus(), 50);
+      }
+      function hideLoginScreen() {
+        loginScreen.style.display = 'none';
+      }
 
-/* ---------- fenêtres modales génériques (compte, mot de passe oublié, export) ---------- */
-function openModal(id){
-  document.getElementById(id).classList.add('open');
-}
-function closeModal(id){
-  document.getElementById(id).classList.remove('open');
-}
-document.querySelectorAll('[data-close-modal]').forEach(btn=>{
-  btn.addEventListener('click', ()=> closeModal(btn.dataset.closeModal));
-});
-document.querySelectorAll('.modal-overlay').forEach(overlay=>{
-  overlay.addEventListener('click', (ev)=>{
-    if(ev.target === overlay) closeModal(overlay.id);
-  });
-});
+      loginForm.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const u = document.getElementById('login-username').value.trim();
+        const p = document.getElementById('login-password').value;
+        const hashedP = await sha256(p);
+        
+        // Rétrocompatibilité si un mot de passe en clair est déjà stocké
+        const isPasswordValid = authCreds && (authCreds.passwordHash ? hashedP === authCreds.passwordHash : p === authCreds.password);
+        
+        if (authCreds && u === authCreds.username && isPasswordValid) {
+          hideFieldMessage(loginError);
+          hideLoginScreen();
+        } else {
+          showFieldMessage(loginError, "Nom d'utilisateur ou mot de passe incorrect.");
+        }
+      });
 
-function showFieldMessage(el, text){
-  el.textContent = text;
-  el.classList.add('show');
-}
-function hideFieldMessage(el){
-  el.textContent = '';
-  el.classList.remove('show');
-}
+      /* ---------- mot de passe oublié ---------- */
+      document.getElementById('btn-forgot-password').addEventListener('click', () => {
+        hideFieldMessage(loginError);
+        hideFieldMessage(document.getElementById('forgot-success'));
+        openModal('forgot-modal');
+      });
+      document.getElementById('btn-confirm-reset').addEventListener('click', async () => {
+        await saveAuthCreds({ ...DEFAULT_CREDENTIALS });
+        const successEl = document.getElementById('forgot-success');
+        showFieldMessage(successEl, `Identifiants réinitialisés — utilisateur : "${DEFAULT_CREDENTIALS.username}", mot de passe : "admin1234".`);
+        document.getElementById('login-username').value = DEFAULT_CREDENTIALS.username;
+      });
 
-/* ---------- écran de connexion ---------- */
-const loginScreen = document.getElementById('login-screen');
-const loginForm = document.getElementById('login-form');
-const loginError = document.getElementById('login-error');
+      /* ---------- compte : changer identifiant / mot de passe, déconnexion ---------- */
+      document.getElementById('btn-account').addEventListener('click', () => {
+        document.getElementById('account-form').reset();
+        if (authCreds && authCreds.plan) {
+          document.getElementById('account-plan').value = authCreds.plan;
+        } else {
+          document.getElementById('account-plan').value = 'standard';
+        }
+        hideFieldMessage(document.getElementById('account-error'));
+        hideFieldMessage(document.getElementById('account-success'));
+        openModal('account-modal');
+      });
 
-function showLoginScreen(){
-  document.getElementById('login-username').value = '';
-  document.getElementById('login-password').value = '';
-  hideFieldMessage(loginError);
-  loginScreen.style.display = 'flex';
-  setTimeout(()=> document.getElementById('login-username').focus(), 50);
-}
-function hideLoginScreen(){
-  loginScreen.style.display = 'none';
-}
+      document.getElementById('account-form').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const errorEl = document.getElementById('account-error');
+        const successEl = document.getElementById('account-success');
+        hideFieldMessage(errorEl); hideFieldMessage(successEl);
 
-loginForm.addEventListener('submit', (ev)=>{
-  ev.preventDefault();
-  const u = document.getElementById('login-username').value.trim();
-  const p = document.getElementById('login-password').value;
-  if(authCreds && u === authCreds.username && p === authCreds.password){
-    hideFieldMessage(loginError);
-    hideLoginScreen();
-  }else{
-    showFieldMessage(loginError, "Nom d'utilisateur ou mot de passe incorrect.");
-  }
-});
+        const current = document.getElementById('account-current-password').value;
+        const newUsername = document.getElementById('account-new-username').value.trim();
+        const newPassword = document.getElementById('account-new-password').value;
+        const confirmPassword = document.getElementById('account-confirm-password').value;
+        const newPlan = document.getElementById('account-plan').value;
 
-/* ---------- mot de passe oublié ---------- */
-document.getElementById('btn-forgot-password').addEventListener('click', ()=>{
-  hideFieldMessage(loginError);
-  hideFieldMessage(document.getElementById('forgot-success'));
-  openModal('forgot-modal');
-});
-document.getElementById('btn-confirm-reset').addEventListener('click', async ()=>{
-  await saveAuthCreds({...DEFAULT_CREDENTIALS});
-  const successEl = document.getElementById('forgot-success');
-  showFieldMessage(successEl, `Identifiants réinitialisés — utilisateur : "${DEFAULT_CREDENTIALS.username}", mot de passe : "${DEFAULT_CREDENTIALS.password}".`);
-  document.getElementById('login-username').value = DEFAULT_CREDENTIALS.username;
-});
+        const hashedCurrent = await sha256(current);
+        const isCurrentValid = authCreds && (authCreds.passwordHash ? hashedCurrent === authCreds.passwordHash : current === authCreds.password);
 
-/* ---------- compte : changer identifiant / mot de passe, déconnexion ---------- */
-document.getElementById('btn-account').addEventListener('click', ()=>{
-  document.getElementById('account-form').reset();
-  if(authCreds && authCreds.plan){
-    document.getElementById('account-plan').value = authCreds.plan;
-  } else {
-    document.getElementById('account-plan').value = 'standard';
-  }
-  hideFieldMessage(document.getElementById('account-error'));
-  hideFieldMessage(document.getElementById('account-success'));
-  openModal('account-modal');
-});
+        if (!isCurrentValid) {
+          showFieldMessage(errorEl, 'Mot de passe actuel incorrect.');
+          return;
+        }
+        if (!newUsername) {
+          showFieldMessage(errorEl, "Le nom d'utilisateur ne peut pas être vide.");
+          return;
+        }
+        if (newPassword.length < 4) {
+          showFieldMessage(errorEl, 'Le nouveau mot de passe doit contenir au moins 4 caractères.');
+          return;
+        }
+        if (newPassword !== confirmPassword) {
+          showFieldMessage(errorEl, 'La confirmation ne correspond pas au nouveau mot de passe.');
+          return;
+        }
 
-document.getElementById('account-form').addEventListener('submit', async (ev)=>{
-  ev.preventDefault();
-  const errorEl = document.getElementById('account-error');
-  const successEl = document.getElementById('account-success');
-  hideFieldMessage(errorEl); hideFieldMessage(successEl);
+        const hashedNew = await sha256(newPassword);
+        await saveAuthCreds({ username: newUsername, passwordHash: hashedNew, plan: newPlan });
+        showFieldMessage(successEl, 'Identifiants et abonnement mis à jour avec succès.');
+        document.getElementById('account-form').reset();
+      });
 
-  const current = document.getElementById('account-current-password').value;
-  const newUsername = document.getElementById('account-new-username').value.trim();
-  const newPassword = document.getElementById('account-new-password').value;
-  const confirmPassword = document.getElementById('account-confirm-password').value;
-  const newPlan = document.getElementById('account-plan').value;
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        closeModal('account-modal');
+        showLoginScreen();
+      });
 
-  if(!authCreds || current !== authCreds.password){
-    showFieldMessage(errorEl, 'Mot de passe actuel incorrect.');
-    return;
-  }
-  if(!newUsername){
-    showFieldMessage(errorEl, "Le nom d'utilisateur ne peut pas être vide.");
-    return;
-  }
-  if(newPassword.length < 4){
-    showFieldMessage(errorEl, 'Le nouveau mot de passe doit contenir au moins 4 caractères.');
-    return;
-  }
-  if(newPassword !== confirmPassword){
-    showFieldMessage(errorEl, 'La confirmation ne correspond pas au nouveau mot de passe.');
-    return;
-  }
+      /* ---------- export : choix ordinateur ou email ---------- */
+      function resetExportModal() {
+        document.getElementById('export-step-choice').style.display = 'block';
+        document.getElementById('export-step-email').style.display = 'none';
+        document.getElementById('export-email-form').reset();
+        hideFieldMessage(document.getElementById('export-email-error'));
+      }
+      document.getElementById('btn-export').addEventListener('click', () => {
+        const plan = (authCreds && authCreds.plan) ? authCreds.plan : 'standard';
+        if (plan === 'standard' || plan === 'medium') {
+          alert("Cette option n'est pas incluse dans votre abonnement.\n\nL'exportation requiert l'option Premium (10000 FCFA).\nVous pouvez modifier votre abonnement dans la section « Compte ».");
+          return;
+        }
+        resetExportModal();
+        openModal('export-modal');
+      });
+      document.getElementById('export-choice-computer').addEventListener('click', async () => {
+        const btn = document.getElementById('export-choice-computer');
+        btn.style.opacity = '0.6';
+        await generateAndDownloadExport();
+        btn.style.opacity = '';
+        closeModal('export-modal');
+      });
+      document.getElementById('export-choice-email').addEventListener('click', () => {
+        document.getElementById('export-step-choice').style.display = 'none';
+        document.getElementById('export-step-email').style.display = 'block';
+        setTimeout(() => document.getElementById('export-email-address').focus(), 50);
+      });
+      document.getElementById('export-email-back').addEventListener('click', resetExportModal);
+      document.getElementById('export-email-form').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const errorEl = document.getElementById('export-email-error');
+        hideFieldMessage(errorEl);
+        const email = document.getElementById('export-email-address').value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showFieldMessage(errorEl, 'Merci de saisir une adresse email valide.');
+          return;
+        }
+        const ok = await generateAndDownloadExport();
+        if (!ok) return;
+        const subject = encodeURIComponent('CATRANS Transportation Fees — Export');
+        const body = encodeURIComponent(
+          "Bonjour,\n\nVeuillez trouver ci-joint le fichier d'export CATRANS Transportation Fees.\n" +
+          "Le fichier vient d'être téléchargé sur cet ordinateur : merci de le joindre manuellement à cet email avant l'envoi.\n\nCordialement."
+        );
+        window.location.href = `mailto:${encodeURIComponent(email)}?subject=${subject}&body=${body}`;
+        closeModal('export-modal');
+      });
 
-  await saveAuthCreds({ username:newUsername, password:newPassword, plan:newPlan });
-  showFieldMessage(successEl, 'Identifiants et abonnement mis à jour avec succès.');
-  document.getElementById('account-form').reset();
-});
+      /* ---------- init ---------- */
+      (async function init() {
+        authCreds = await loadAuthCreds();
+        showLoginScreen();
+        await loadRows();
+        render();
+        setStampSaved();
+      })();
 
-document.getElementById('btn-logout').addEventListener('click', ()=>{
-  closeModal('account-modal');
-  showLoginScreen();
-});
-
-/* ---------- export : choix ordinateur ou email ---------- */
-function resetExportModal(){
-  document.getElementById('export-step-choice').style.display = 'block';
-  document.getElementById('export-step-email').style.display = 'none';
-  document.getElementById('export-email-form').reset();
-  hideFieldMessage(document.getElementById('export-email-error'));
-}
-document.getElementById('btn-export').addEventListener('click', ()=>{
-  const plan = (authCreds && authCreds.plan) ? authCreds.plan : 'standard';
-  if(plan === 'standard' || plan === 'medium'){
-    alert("Cette option n'est pas incluse dans votre abonnement.\n\nL'exportation requiert l'option Premium (10000 FCFA).\nVous pouvez modifier votre abonnement dans la section « Compte ».");
-    return;
-  }
-  resetExportModal();
-  openModal('export-modal');
-});
-document.getElementById('export-choice-computer').addEventListener('click', async ()=>{
-  const btn = document.getElementById('export-choice-computer');
-  btn.style.opacity = '0.6';
-  await generateAndDownloadExport();
-  btn.style.opacity = '';
-  closeModal('export-modal');
-});
-document.getElementById('export-choice-email').addEventListener('click', ()=>{
-  document.getElementById('export-step-choice').style.display = 'none';
-  document.getElementById('export-step-email').style.display = 'block';
-  setTimeout(()=> document.getElementById('export-email-address').focus(), 50);
-});
-document.getElementById('export-email-back').addEventListener('click', resetExportModal);
-document.getElementById('export-email-form').addEventListener('submit', async (ev)=>{
-  ev.preventDefault();
-  const errorEl = document.getElementById('export-email-error');
-  hideFieldMessage(errorEl);
-  const email = document.getElementById('export-email-address').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    showFieldMessage(errorEl, 'Merci de saisir une adresse email valide.');
-    return;
-  }
-  const ok = await generateAndDownloadExport();
-  if(!ok) return;
-  const subject = encodeURIComponent('CATRANS Transportation Fees — Export');
-  const body = encodeURIComponent(
-    "Bonjour,\n\nVeuillez trouver ci-joint le fichier d'export CATRANS Transportation Fees.\n" +
-    "Le fichier vient d'être téléchargé sur cet ordinateur : merci de le joindre manuellement à cet email avant l'envoi.\n\nCordialement."
-  );
-  window.location.href = `mailto:${encodeURIComponent(email)}?subject=${subject}&body=${body}`;
-  closeModal('export-modal');
-});
-
-/* ---------- init ---------- */
-(async function init(){
-  authCreds = await loadAuthCreds();
-  showLoginScreen();
-  await loadRows();
-  render();
-  setStampSaved();
-})();
-
-})();
-</script>
+    })();
+  </script>
 </body>
+
 </html>
