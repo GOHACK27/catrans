@@ -474,6 +474,14 @@
           <label for="account-confirm-password">Confirmer le nouveau mot de passe</label>
           <input type="password" id="account-confirm-password" autocomplete="new-password" required>
         </div>
+        <div class="field-group">
+          <label for="account-plan">Option Paiement / Abonnement</label>
+          <select id="account-plan" style="width:100%; border:1.5px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13.5px; background:var(--paper); color:var(--ink);">
+            <option value="standard">Option Standard (5000 FCFA) - Remplir le tableau</option>
+            <option value="medium">Option Medium (7000 FCFA) - Tableau + Import</option>
+            <option value="premium">Option Premium (10000 FCFA) - Tableau + Import + Export</option>
+          </select>
+        </div>
         <div class="modal-actions">
           <button type="button" class="btn btn-ghost" id="btn-logout">🚪 Se déconnecter</button>
           <button type="submit" class="btn btn-accent">Enregistrer</button>
@@ -558,7 +566,7 @@ const STORAGE_KEY = 'catrans_months'; // { "2026-08": [rows...], "2026-07": [row
    window.storage. Sans serveur, ceci protège l'accès à l'interface mais n'est pas un
    dispositif de sécurité fort (le code reste consultable) — c'est un simple portail. */
 const AUTH_STORAGE_KEY = 'catrans_auth';
-const DEFAULT_CREDENTIALS = { username: 'admin', password: 'admin1234' };
+const DEFAULT_CREDENTIALS = { username: 'admin', password: 'admin1234', plan: 'standard' };
 let authCreds = null;
 let authCredsFallback = null;
 
@@ -1285,6 +1293,11 @@ document.getElementById('btn-clear-filters').addEventListener('click', ()=>{
 });
 
 document.getElementById('btn-import').addEventListener('click', ()=>{
+  const plan = (authCreds && authCreds.plan) ? authCreds.plan : 'standard';
+  if(plan === 'standard'){
+    alert("Cette option n'est pas incluse dans votre abonnement.\n\nL'importation requiert l'option Medium (7000 FCFA) ou Premium (10000 FCFA).\nVous pouvez modifier votre abonnement dans la section « Compte ».");
+    return;
+  }
   document.getElementById('import-file-input').click();
 });
 
@@ -1508,6 +1521,11 @@ document.getElementById('btn-confirm-reset').addEventListener('click', async ()=
 /* ---------- compte : changer identifiant / mot de passe, déconnexion ---------- */
 document.getElementById('btn-account').addEventListener('click', ()=>{
   document.getElementById('account-form').reset();
+  if(authCreds && authCreds.plan){
+    document.getElementById('account-plan').value = authCreds.plan;
+  } else {
+    document.getElementById('account-plan').value = 'standard';
+  }
   hideFieldMessage(document.getElementById('account-error'));
   hideFieldMessage(document.getElementById('account-success'));
   openModal('account-modal');
@@ -1523,6 +1541,7 @@ document.getElementById('account-form').addEventListener('submit', async (ev)=>{
   const newUsername = document.getElementById('account-new-username').value.trim();
   const newPassword = document.getElementById('account-new-password').value;
   const confirmPassword = document.getElementById('account-confirm-password').value;
+  const newPlan = document.getElementById('account-plan').value;
 
   if(!authCreds || current !== authCreds.password){
     showFieldMessage(errorEl, 'Mot de passe actuel incorrect.');
@@ -1541,8 +1560,8 @@ document.getElementById('account-form').addEventListener('submit', async (ev)=>{
     return;
   }
 
-  await saveAuthCreds({ username:newUsername, password:newPassword });
-  showFieldMessage(successEl, 'Identifiants mis à jour avec succès.');
+  await saveAuthCreds({ username:newUsername, password:newPassword, plan:newPlan });
+  showFieldMessage(successEl, 'Identifiants et abonnement mis à jour avec succès.');
   document.getElementById('account-form').reset();
 });
 
@@ -1559,6 +1578,11 @@ function resetExportModal(){
   hideFieldMessage(document.getElementById('export-email-error'));
 }
 document.getElementById('btn-export').addEventListener('click', ()=>{
+  const plan = (authCreds && authCreds.plan) ? authCreds.plan : 'standard';
+  if(plan === 'standard' || plan === 'medium'){
+    alert("Cette option n'est pas incluse dans votre abonnement.\n\nL'exportation requiert l'option Premium (10000 FCFA).\nVous pouvez modifier votre abonnement dans la section « Compte ».");
+    return;
+  }
   resetExportModal();
   openModal('export-modal');
 });
