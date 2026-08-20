@@ -1151,7 +1151,8 @@
       <p class="modal-subtitle">Modifier le nom d'utilisateur et le mot de passe de connexion.</p>
       <div class="form-error" id="account-error"></div>
       <div class="form-success" id="account-success"></div>
-      <form id="account-form">
+      <form id="account-auth-form" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line);">
+        <h4 style="margin-bottom: 15px; font-size: 14px; color: var(--ink);">Modifier les identifiants</h4>
         <div class="field-group">
           <label for="account-current-password">Mot de passe actuel</label>
           <input type="password" id="account-current-password" autocomplete="current-password" required>
@@ -1168,6 +1169,13 @@
           <label for="account-confirm-password">Confirmer le nouveau mot de passe</label>
           <input type="password" id="account-confirm-password" autocomplete="new-password" required>
         </div>
+        <div class="modal-actions" style="margin-top: 15px;">
+          <button type="submit" class="btn btn-accent">Mettre à jour les identifiants</button>
+        </div>
+      </form>
+      
+      <form id="account-plan-form">
+        <h4 style="margin-bottom: 15px; font-size: 14px; color: var(--ink);">Modifier l'abonnement</h4>
         <div class="field-group">
           <label for="account-plan">Option Paiement / Abonnement</label>
           <select id="account-plan"
@@ -1177,9 +1185,9 @@
             <option value="premium">Option Premium (10000 FCFA) - Tableau + Import + Export</option>
           </select>
         </div>
-        <div class="modal-actions">
+        <div class="modal-actions" style="margin-top: 15px;">
           <button type="button" class="btn btn-ghost" id="btn-logout">🚪 Se déconnecter</button>
-          <button type="submit" class="btn btn-accent">Enregistrer</button>
+          <button type="submit" class="btn btn-accent">Mettre à jour l'abonnement</button>
         </div>
       </form>
     </div>
@@ -1265,10 +1273,10 @@
          window.storage. Sans serveur, ceci protège l'accès à l'interface mais n'est pas un
          dispositif de sécurité fort (le code reste consultable) — c'est un simple portail. */
       const AUTH_STORAGE_KEY = 'catrans_auth';
-      // Le mot de passe par défaut est 'admin1234', stocké ici sous forme de hash pour éviter l'exposition en clair.
+      // Le mot de passe par défaut est 'admin', stocké ici sous forme de hash pour éviter l'exposition en clair.
       const DEFAULT_CREDENTIALS = { 
         username: 'admin', 
-        passwordHash: '5518423402539479', 
+        passwordHash: '8673521739269644', 
         plan: 'standard' 
       };
       let authCreds = null;
@@ -2236,13 +2244,14 @@
       document.getElementById('btn-confirm-reset').addEventListener('click', async () => {
         await saveAuthCreds({ ...DEFAULT_CREDENTIALS });
         const successEl = document.getElementById('forgot-success');
-        showFieldMessage(successEl, `Identifiants réinitialisés — utilisateur : "${DEFAULT_CREDENTIALS.username}", mot de passe : "admin1234".`);
+        showFieldMessage(successEl, `Identifiants réinitialisés — utilisateur : "${DEFAULT_CREDENTIALS.username}", mot de passe : "admin".`);
         document.getElementById('login-username').value = DEFAULT_CREDENTIALS.username;
       });
 
       /* ---------- compte : changer identifiant / mot de passe, déconnexion ---------- */
       document.getElementById('btn-account').addEventListener('click', () => {
-        document.getElementById('account-form').reset();
+        document.getElementById('account-auth-form').reset();
+        document.getElementById('account-plan-form').reset();
         if (authCreds && authCreds.plan) {
           document.getElementById('account-plan').value = authCreds.plan;
         } else {
@@ -2253,7 +2262,7 @@
         openModal('account-modal');
       });
 
-      document.getElementById('account-form').addEventListener('submit', async (ev) => {
+      document.getElementById('account-auth-form').addEventListener('submit', async (ev) => {
         ev.preventDefault();
         const errorEl = document.getElementById('account-error');
         const successEl = document.getElementById('account-success');
@@ -2263,7 +2272,6 @@
         const newUsername = document.getElementById('account-new-username').value.trim();
         const newPassword = document.getElementById('account-new-password').value;
         const confirmPassword = document.getElementById('account-confirm-password').value;
-        const newPlan = document.getElementById('account-plan').value;
 
         const hashedCurrent = hashPassword(current);
         const isCurrentValid = authCreds && (authCreds.passwordHash ? hashedCurrent === authCreds.passwordHash : current === authCreds.password);
@@ -2286,9 +2294,25 @@
         }
 
         const hashedNew = hashPassword(newPassword);
-        await saveAuthCreds({ username: newUsername, passwordHash: hashedNew, plan: newPlan });
-        showFieldMessage(successEl, 'Identifiants et abonnement mis à jour avec succès.');
-        document.getElementById('account-form').reset();
+        const currentPlan = authCreds ? authCreds.plan : 'standard';
+        await saveAuthCreds({ username: newUsername, passwordHash: hashedNew, plan: currentPlan });
+        showFieldMessage(successEl, 'Identifiants mis à jour avec succès.');
+        document.getElementById('account-auth-form').reset();
+      });
+
+      document.getElementById('account-plan-form').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const errorEl = document.getElementById('account-error');
+        const successEl = document.getElementById('account-success');
+        hideFieldMessage(errorEl); hideFieldMessage(successEl);
+
+        const newPlan = document.getElementById('account-plan').value;
+        if (authCreds) {
+           await saveAuthCreds({ ...authCreds, plan: newPlan });
+        } else {
+           await saveAuthCreds({ ...DEFAULT_CREDENTIALS, plan: newPlan });
+        }
+        showFieldMessage(successEl, 'Abonnement mis à jour avec succès.');
       });
 
       document.getElementById('btn-logout').addEventListener('click', () => {
